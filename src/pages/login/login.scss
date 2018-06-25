@@ -1,0 +1,32 @@
+.toolbar-title-md {
+    text-align: center;
+}
+.logo{
+    img{
+        width: 80px;
+        height: 50px;
+        border-radius:5px;
+        margin-top: 0px;
+        margin-left:0px;
+        float:left;
+    }
+}
+
+.title{
+    text-align:center;
+    height: 200px;
+    background: -webkit-linear-gradient(left, #5caeff ,#6a96f9); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(right, #5caeff, #6a96f9); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(right, #5caeff, #6a96f9); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to right, #5caeff , #6a96f9); /* 标准的语法 */
+    color:white;
+    font-size: 40px;
+}
+#loginBtn{
+    .button-ios{
+        border-radius: 20px;
+    }
+    .grown{
+        background: #666;
+    }
+}
