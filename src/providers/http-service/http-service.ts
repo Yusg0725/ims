@@ -10,7 +10,7 @@ import { ConfigProvider } from '../../providers/config/config';
 @Injectable()
 export class HttpServiceProvider {
 
-  private headers = new Headers({ "Content-Type": "application/x-www-form-urlencoded" });//application/json
+  private headers = new Headers({ "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8;" });//application/json;
   constructor(public http: Http, public jsonp: Jsonp, public config: ConfigProvider) {
     console.log('Hello HttpServiceProvider Provider');
   }
