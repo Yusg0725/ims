@@ -10,13 +10,12 @@ import { ConfigProvider } from '../../providers/config/config';
 @Injectable()
 export class HttpServiceProvider {
 
-  private headers = new Headers({ "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8;" });//application/json;
-  constructor(public http: Http, public jsonp: Jsonp, public config: ConfigProvider) {
+  private headers =new Headers({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});
+  //application/json;application/x-www-form-urlencoded;text/plain;
+  constructor(private http:Http,private jsonp:Jsonp, public config: ConfigProvider) {
     console.log('Hello HttpServiceProvider Provider');
   }
-
   //请求数据
-  //apiUrl 
   requestData(apiUrl, callback) {
     var url: string;
     if (apiUrl.indexOf('?') == -1) {
@@ -24,19 +23,20 @@ export class HttpServiceProvider {
     } else {
       url = this.config.apiUrl + apiUrl + '&callback=JSONP_CALLBACK';
     }
-    console.log()
+
     this.jsonp.get(url).subscribe(function (data) {
       console.log(data);
-      callback(data);
+      callback(data['_body']);
     }, function (err) {
       console.log(err);
     })
   }
 
   doPost(apiUrl, json, callback) {
-    var url = this.config.apiUrl + apiUrl;
-    this.http.post(url, JSON.stringify(json), { headers: this.headers }).subscribe(function (res) {
-      callback(res.json());
+    var url= this.config.apiUrl + apiUrl;
+    this.http.post(url,JSON.stringify(json), { headers: this.headers }).subscribe(function (res) {//JSON.stringify(
+      callback(JSON.parse(res.json()));
     })
   }
+  
 }

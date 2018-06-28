@@ -2,14 +2,10 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ConfigProvider } from '../../providers/config/config';
 import { HttpServiceProvider } from '../../providers/http-service/http-service';
-//引入http组件
-import { Http, Jsonp } from '@angular/http';
+import { MsgServiceProvider } from '../../providers/msg-service/msg-service';
 import 'rxjs/add/operator/map';
 import { TabsPage } from "../tabs/tabs";
-//引入toast模块
-import { ToastController } from 'ionic-angular';
-//模态模块
-import { ModalController } from 'ionic-angular';
+//引入自定义组件模块
 
 
 /**
@@ -25,7 +21,7 @@ import { ModalController } from 'ionic-angular';
 })
 export class LoginPage {
 
-  constructor(public httpService: HttpServiceProvider, public config: ConfigProvider, public http: Http, private jsonp: Jsonp, public modalCtrl: ModalController, private toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public httpService: HttpServiceProvider, public config: ConfigProvider, public msgService:MsgServiceProvider,private navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
@@ -33,67 +29,37 @@ export class LoginPage {
   }
 
   login(username: HTMLInputElement, password: HTMLInputElement) {
+    //是否拥有进入主页的权限
+    var homeright=false;
     if (username.value.length == 0) {
-        let toast = this.toastCtrl.create({
-          message: '请输入员工编号',
-          duration: 3000,
-          position: 'top'
-        });
-        toast.onDidDismiss(() => {
-          console.log('Dismissed toast');
-        });
-        toast.present();
+      this.msgService.showToast("请输入员工编号!",3000);
     } else if (password.value.length == 0) {
-      let toast = this.toastCtrl.create({
-        message: '请输入员工密码',
-        duration: 3000,
-        position: 'top'
-      });
-      toast.onDidDismiss(() => {
-        console.log('Dismissed toast');
-      });
-      toast.present();
+      this.msgService.showToast("请输入员工密码!",3000);
     } else {
-      // let userinfo: string = '用户名：' + username.value + '密码：' + password.value;
-      // console.log(userinfo);
+
+      /*调用登录接口*/
+      this.httpService.doPost("Login/CheckLogin",{Account:username.value,Password:password.value},function(data){
+        console.log(data);
+        if(data.status==1){
+          homeright=false;
+        }else{
+          homeright=true;
+        }
+      })
+
+      setTimeout(() => {
+        if(!homeright){
+          this.msgService.showToast("账号或密码错误!",3000);
+        }else{
+          this.msgService.showLoading("登录成功,欢迎!",3000);
+          //保存local账号密码
+          localStorage.setItem('Account',username.value);
+          localStorage.setItem('Password',password.value);
+          //验证完成完成跳转
+          this.navCtrl.push(TabsPage); 
+        }
+      }, 1000);
+      
     }
-    this.httpService.doPost("Login/CheckLogin",{account:username.value,password:password.value},function(data){
-      console.log(data);
-    })
-    // this.httpService.requestData('Login/CheckLogin?account='+username.value+'&password='+password.value,function(data){
-    //   console.log(data);
-    //   if(data.status==1){
-    //     let toast = this.toastCtrl.create({
-    //       message: '账号或密码错误-_-!',
-    //       duration: 3000,
-    //       position: 'top'
-    //     });
-
-    //     toast.onDidDismiss(() => {
-    //       console.log('Dismissed toast');
-    //     });
-
-    //     toast.present();
-    //   }else{
-    //     let toast = this.toastCtrl.create({
-    //       message: '登录成功,欢迎!',
-    //       duration: 3000,
-    //       position: 'top'
-    //     });
-
-    //     toast.onDidDismiss(() => {
-    //       console.log('Dismissed toast');
-    //     });
-
-    //     //保存local账号密码
-    //     localStorage.setItem('user',username.value);
-    //     localStorage.setItem('psw',password.value);
-
-    //     toast.present();
-    //     //验证完成完成跳转
-    //     this.navCtrl.push(TabsPage);
-    //   }
-
-    // })   
   }
 }
