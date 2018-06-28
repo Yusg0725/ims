@@ -20,8 +20,8 @@ export class MyApp {
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     //获取曾经登录过的用户的信息
-    let myuser = localStorage.getItem('user');
-    let mypsw = localStorage.getItem('psw');
+    let myuser = localStorage.getItem('Account');
+    let mypsw = localStorage.getItem('Password');
     platform.ready().then(() => {
       //验证用户信息,跳过登录页
       if(myuser===null||mypsw===null){

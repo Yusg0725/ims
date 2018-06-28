@@ -24,13 +24,13 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.ion-ios-diy-loading:before,
-.ion-ios-diy-loading-outline:before
-.ion-ios-diy-loading:before {
+.ion-md-ios-loding:before,
+.ion-md-ios-loding-outline:before
+.ion-md-ios-loding:before {
   content: "\e900";
   color: #1296db;
 }
-.ion-ios-diy-loading-outline:before {
+.ion-md-ios-loding-outline:before {
   content: "\e900";
   color: #1296db;
 }

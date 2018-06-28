@@ -11,7 +11,7 @@ import { Injectable } from '@angular/core';
 export class ConfigProvider {
 
   //api请求地址
-  public apiUrl="http://192.168.0.62:8300/api/";//http://118.190.96.161:8300/api/
+  public apiUrl="http://118.190.96.161:8300/api/";//http://118.190.96.161:8300/api/
 
   constructor(public http: Http) {
     console.log('Hello ConfigProvider Provider');

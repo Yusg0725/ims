@@ -1,5 +1,7 @@
 .custom-loading-bg{
     position: absolute;
+    top:0%;
+    left:0%;
     height:100%;
     width:100%;
     opacity: 0.1;
@@ -18,5 +20,7 @@
     z-index: 200;
     line-height: 100px;
     text-align: center;
-    font-size:16px
+    font-size:16px;
+    overflow:auto;
+    border: 8px solid #E8E9F7;
 }

@@ -8,8 +8,8 @@ import { HttpModule,JsonpModule} from '@angular/http';
 import { HttpClientModule} from '@angular/common/http';
 
 
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
+import { MyPage } from '../pages/my/my';
+import { SettingPage } from '../pages/setting/setting';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage} from '../pages/login/login';
@@ -23,8 +23,8 @@ import { MsgServiceProvider } from '../providers/msg-service/msg-service';
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
+    MyPage,
+    SettingPage,
     HomePage,
     TabsPage,
     LoginPage
@@ -40,8 +40,8 @@ import { MsgServiceProvider } from '../providers/msg-service/msg-service';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
+    MyPage,
+    SettingPage,
     HomePage,
     TabsPage,
     LoginPage
