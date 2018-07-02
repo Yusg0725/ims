@@ -1,17 +1,22 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      设置
-    </ion-title>
-  </ion-navbar>
-</ion-header>
-
 <ion-content>
-  <ion-list>
-    <ion-list-header>Follow us on Twitter</ion-list-header>
-    <ion-item>
-      <ion-icon name="ionic" item-start></ion-icon>
-      @ionicframework
-    </ion-item>
-  </ion-list>
+  <div class="title" style="float:left;">
+    <div style="width:5%;float:left;">
+      <ion-icon name="notifications"></ion-icon>
+    </div>
+    <div style="float:left;width:89%">设置</div>
+    <div style="width:5%;float:left;">
+      <ion-icon name="settings"></ion-icon>
+    </div>
+    <div style="float:left;margin-top:50px;width:100%;">
+      <ion-list no-lines>
+        <ion-item class="bg">
+          <ion-avatar item-start>
+            <img src="./assets/imgs/head.JPG">
+          </ion-avatar>
+          <h2>{{RealName}}</h2>
+          <p><ion-icon name="phone-portrait"></ion-icon>{{Mobile}}</p>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
 </ion-content>

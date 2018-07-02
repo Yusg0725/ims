@@ -11,7 +11,7 @@
     <ion-row *ngFor="let rowList of getRowListByGridList(3)">
       <ion-col *ngFor="let colItem of rowList">
           <!-- [ngStyle]="{'background-color': colItem.color}" -->
-            <button ion-button icon-start class="card">
+            <button ion-button icon-start class="card" (click)="doOperation()">
               <ion-icon name="{{colItem.icon}}"></ion-icon>
               <h2>{{colItem.name}}</h2>
             </button>

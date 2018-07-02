@@ -7,8 +7,10 @@ import { MyApp } from './app.component';
 import { HttpModule,JsonpModule} from '@angular/http';
 import { HttpClientModule} from '@angular/common/http';
 
+import { Camera } from '@ionic-native/camera';
 
 import { MyPage } from '../pages/my/my';
+import { MyCameraPage } from '../pages/my-camera/my-camera';
 import { SettingPage } from '../pages/setting/setting';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -19,11 +21,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { ConfigProvider } from '../providers/config/config';
 import { HttpServiceProvider } from '../providers/http-service/http-service';
 import { MsgServiceProvider } from '../providers/msg-service/msg-service';
+import { AppserviceProvider,AppGlobal } from '../providers/appservice/appservice';
 
 @NgModule({
   declarations: [
     MyApp,
     MyPage,
+    MyCameraPage,
     SettingPage,
     HomePage,
     TabsPage,
@@ -41,6 +45,7 @@ import { MsgServiceProvider } from '../providers/msg-service/msg-service';
   entryComponents: [
     MyApp,
     MyPage,
+    MyCameraPage,
     SettingPage,
     HomePage,
     TabsPage,
@@ -52,7 +57,10 @@ import { MsgServiceProvider } from '../providers/msg-service/msg-service';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ConfigProvider,
     HttpServiceProvider,
-    MsgServiceProvider
+    MsgServiceProvider,
+    AppserviceProvider,
+    AppGlobal,
+    Camera
   ]
 })
 export class AppModule {}

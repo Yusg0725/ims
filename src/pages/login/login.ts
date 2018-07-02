@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ConfigProvider } from '../../providers/config/config';
-import { HttpServiceProvider } from '../../providers/http-service/http-service';
-import { MsgServiceProvider } from '../../providers/msg-service/msg-service';
+import { AppserviceProvider, AppGlobal } from '../../providers/appservice/appservice';
 import 'rxjs/add/operator/map';
-import { TabsPage } from "../tabs/tabs";
 //引入自定义组件模块
-
+import { TabsPage } from "../tabs/tabs";
 
 /**
  * Generated class for the LoginPage page.
@@ -20,8 +17,7 @@ import { TabsPage } from "../tabs/tabs";
   templateUrl: 'login.html',
 })
 export class LoginPage {
-
-  constructor(public httpService: HttpServiceProvider, public config: ConfigProvider, public msgService:MsgServiceProvider,private navCtrl: NavController, public navParams: NavParams) {
+  constructor(public appService: AppserviceProvider, private navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
@@ -30,36 +26,21 @@ export class LoginPage {
 
   login(username: HTMLInputElement, password: HTMLInputElement) {
     //是否拥有进入主页的权限
-    var homeright=false;
     if (username.value.length == 0) {
-      this.msgService.showToast("请输入员工编号!",3000);
+      this.appService.toast("请输入员工编号!");
+      return false;
     } else if (password.value.length == 0) {
-      this.msgService.showToast("请输入员工密码!",3000);
-    } else {
-
-      /*调用登录接口*/
-      this.httpService.doPost("Login/CheckLogin",{Account:username.value,Password:password.value},function(data){
-        console.log(data);
-        if(data.status==1){
-          homeright=false;
-        }else{
-          homeright=true;
-        }
-      })
-
-      setTimeout(() => {
-        if(!homeright){
-          this.msgService.showToast("账号或密码错误!",3000);
-        }else{
-          this.msgService.showLoading("登录成功,欢迎!",3000);
-          //保存local账号密码
-          localStorage.setItem('Account',username.value);
-          localStorage.setItem('Password',password.value);
-          //验证完成完成跳转
-          this.navCtrl.push(TabsPage); 
-        }
-      }, 1000);
-      
+      this.appService.toast("请输入员工密码!");
+      return false;
     }
+    /*调用登录接口*/
+    const url = AppGlobal.API["login"];
+    const userObj = this.appService.httpPost(url, { Account: username.value, Password: password.value },
+      "登录成功,正在跳转……", "登录失败,账号或密码错误", (data)=> {
+        if (data.status ==0) {
+            this.appService.setItem(AppGlobal.cache["userObj"], data.result);
+            this.navCtrl.push(TabsPage);
+        }
+      }, true);
   }
 }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { MyCameraPage } from '../my-camera/my-camera';
 
 @Component({
   selector: 'page-my',
@@ -10,45 +11,54 @@ export class MyPage {
     {
       icon:'paper',
       name: '日志',
-      color: '#CCC'
+      color: '#CCC',
+      url:''
     },
     {
       icon:'hand',
       name: '打卡',
-      color: '#CCC'
+      color: '#CCC',
+      url:''
     },
     {
       icon:'contacts',
       name: '通讯录',
-      color: '#CCC'
+      color: '#CCC',
+      url:''
     },{
       icon:'paper',
-      name: '日志',
-      color: '#CCC'
+      name: '照相机',
+      color: '#CCC',
+      url:''
     },
     {
       icon:'hand',
-      name: '打卡',
-      color: '#CCC'
+      name: '定位',
+      color: '#CCC',
+      url:''
     },
     {
       icon:'contacts',
-      name: '通讯录',
-      color: '#CCC'
+      name: '上传头像',
+      color: '#CCC',
+      url:''
     },{
       icon:'paper',
-      name: '日志',
-      color: '#CCC'
+      name: '人脸识别',
+      color: '#CCC',
+      url:''
     },
     {
       icon:'hand',
-      name: '打卡',
-      color: '#CCC'
+      name: '邮箱',
+      color: '#CCC',
+      url:''
     },
     {
       icon:'contacts',
       name: '通讯录',
-      color: '#CCC'
+      color: '#CCC',
+      url:''
     }
     ]
 
@@ -66,5 +76,10 @@ export class MyPage {
       rowList.push(this.gridList.slice(i, i + size));
     }
     return rowList;
+  }
+
+  doOperation(){
+    debugger;
+    this.navCtrl.push(MyCameraPage);
   }
 }
