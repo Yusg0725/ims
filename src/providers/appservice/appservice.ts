@@ -8,14 +8,17 @@ export class AppGlobal {
     //缓存key的配置
     static cache: any = {
         userObj: "_userobj",
-        homeRight: "_homeright"
+        homeRight: "_homeright",
+        firstIn:"_firstIn"
     };
     //接口基础地址
     static domain = "http://192.168.0.62:8300";//http://118.190.96.161:8300
     //接口业务地址
     static API: any = {
         login: "/api/Login/CheckLogin",
-        getSlide: "api/Home/getSlides"
+        getSlide: "/api/Home/GetSlides",
+        upload:"/api/File/Upload",
+        download:"/api/File/Download"
     };
 }
 @Injectable()
@@ -42,23 +45,32 @@ export class AppserviceProvider {
         return str;
     }
 
-    httpGet(url, params, callback, loader: boolean = false) {
-        let loading = this.loadingCtrl.create({});
+    httpGet(url, params,smsg,fmsg, callback, loader: boolean = false) {
+        let loading = this.loadingCtrl.create({content:"加载中……"});
         if (loader) {
             loading.present();
         }
         this.http.get(AppGlobal.domain + url + this.encode(params))
             .toPromise()
             .then(res => {
-                var d = res.json();
+                var d = JSON.parse(res.json());//json字符串转化为对象
                 if (loader) {
-                    loading.dismiss();
+                    if(d.status==0){
+                        loading.setContent(smsg);
+                    }else{
+                        loading.setContent(fmsg);
+                    }
+                    setTimeout(() => {
+                        loading.dismiss();
+                    }, 2000);
                 }
                 callback(d == null ? "[]" : d);
-            })
-            .catch(error => {
+            }).catch(error => {
                 if (loader) {
-                    loading.dismiss();
+                    loading.setContent("请求出现故障o(╥﹏╥)o");
+                    setTimeout(() => {
+                        loading.dismiss();
+                    }, 2000);
                 }
                 this.handleError(error);
             });

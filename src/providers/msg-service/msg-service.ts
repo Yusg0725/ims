@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class MsgServiceProvider {
 
-  constructor(public http: HttpClient) {
+  constructor() {
     
   }
   //对应Toast组件中的方法

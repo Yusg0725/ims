@@ -8,6 +8,9 @@ import { HttpModule,JsonpModule} from '@angular/http';
 import { HttpClientModule} from '@angular/common/http';
 
 import { Camera } from '@ionic-native/camera';
+import { File } from '@ionic-native/file';
+import { FileTransfer } from '@ionic-native/file-transfer';
+import { Base64 } from '@ionic-native/base64';
 
 import { MyPage } from '../pages/my/my';
 import { MyCameraPage } from '../pages/my-camera/my-camera';
@@ -15,13 +18,15 @@ import { SettingPage } from '../pages/setting/setting';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage} from '../pages/login/login';
+import { WelcomePage} from '../pages/welcome/welcome';
+import { UserinfoPage} from '../pages/userinfo/userinfo';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { ConfigProvider } from '../providers/config/config';
-import { HttpServiceProvider } from '../providers/http-service/http-service';
-import { MsgServiceProvider } from '../providers/msg-service/msg-service';
 import { AppserviceProvider,AppGlobal } from '../providers/appservice/appservice';
+import { MsgServiceProvider } from '../providers/msg-service/msg-service';
+import { HttpServiceProvider } from '../providers/http-service/http-service';
+import { ConfigProvider } from '../providers/config/config';
 
 @NgModule({
   declarations: [
@@ -31,7 +36,9 @@ import { AppserviceProvider,AppGlobal } from '../providers/appservice/appservice
     SettingPage,
     HomePage,
     TabsPage,
-    LoginPage
+    LoginPage,
+    WelcomePage,
+    UserinfoPage
   ],
   imports: [
     BrowserModule,
@@ -39,7 +46,17 @@ import { AppserviceProvider,AppGlobal } from '../providers/appservice/appservice
     HttpModule,
     JsonpModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp,{
+      backButtonText:'返回',
+      backButtonIcon:'ios-arrow-back',
+      iconMode: 'ios',
+      modalEnter: 'modal-slide-in',
+      modalLeave: 'modal-slide-out',
+      tabsPlacement: 'bottom',//tabs导航的位置
+      pageTransition: 'ios-transition',
+      swipeBackEnabled:true,//实现屏幕右滑返回
+      tabsHideOnSubPages:'true'//隐藏全部子页面tabs
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -49,18 +66,23 @@ import { AppserviceProvider,AppGlobal } from '../providers/appservice/appservice
     SettingPage,
     HomePage,
     TabsPage,
-    LoginPage
+    LoginPage,
+    WelcomePage,
+    UserinfoPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ConfigProvider,
-    HttpServiceProvider,
     MsgServiceProvider,
+    HttpServiceProvider,
+    ConfigProvider,
     AppserviceProvider,
     AppGlobal,
-    Camera
+    Camera,
+    File,
+    FileTransfer,
+    Base64
   ]
 })
 export class AppModule {}

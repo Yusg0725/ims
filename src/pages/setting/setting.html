@@ -1,22 +1,50 @@
-<ion-content>
-  <div class="title" style="float:left;">
-    <div style="width:5%;float:left;">
-      <ion-icon name="notifications"></ion-icon>
-    </div>
-    <div style="float:left;width:89%">设置</div>
-    <div style="width:5%;float:left;">
-      <ion-icon name="settings"></ion-icon>
-    </div>
-    <div style="float:left;margin-top:50px;width:100%;">
-      <ion-list no-lines>
-        <ion-item class="bg">
-          <ion-avatar item-start>
-            <img src="./assets/imgs/head.JPG">
-          </ion-avatar>
-          <h2>{{RealName}}</h2>
-          <p><ion-icon name="phone-portrait"></ion-icon>{{Mobile}}</p>
-        </ion-item>
-      </ion-list>
-    </div>
-  </div>
+<ion-header>
+    <ion-navbar>
+        <ion-title>
+            设置
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="bg-color">
+    <ion-list class="top-list">
+        <button ion-item [navPush]="userPage">
+            <ion-avatar item-left>
+                <ion-icon class="font_family icon-zhaopian"></ion-icon>
+            </ion-avatar>
+            <h2>{{userObj.RealName}}</h2>
+            <p>账号：{{userObj.Account}}</p>
+        </button>
+    </ion-list>
+
+    <ion-list>
+        <button ion-item detail-none class='item-small' [navPush]="">
+            <ion-avatar item-left>
+                <ion-icon name="cafe" class="item-icon"></ion-icon>
+            </ion-avatar>
+            活动发布
+        </button>
+        <button ion-item detail-push class='item-small'>
+            <ion-avatar item-left>
+                <ion-icon name="paper-plane" class="item-icon"></ion-icon>
+            </ion-avatar>
+            新闻发布
+        </button>
+        <button ion-item detail-push class='item-small'>
+            <ion-avatar item-left>
+                <ion-icon name="megaphone" class="item-icon"></ion-icon>
+            </ion-avatar>
+            公告发布
+        </button>
+    </ion-list>
+
+    <ion-list>
+        <button ion-item>
+            版本号
+            <span item-end>V1.0</span>
+        </button>
+        <button ion-item>
+            关于
+        </button>
+    </ion-list>
 </ion-content>

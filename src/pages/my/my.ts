@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { MyCameraPage } from '../my-camera/my-camera';
+import {  } from '@angular/core';
 
 @Component({
   selector: 'page-my',
@@ -79,7 +80,6 @@ export class MyPage {
   }
 
   doOperation(){
-    debugger;
     this.navCtrl.push(MyCameraPage);
   }
 }
