@@ -32,7 +32,7 @@ export class MyApp {
     // });
 
     platform.ready().then(() => {
-      statusBar.styleDefault();
+      //statusBar.styleDefault();
       setTimeout(() => {
         splashScreen.hide();
       }, 1000)
