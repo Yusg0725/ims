@@ -95,5 +95,4 @@
     <allow-navigation href="http://192.168.0.62:8107" />
     <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
     <engine name="android" spec="7.0.0" />
-    <plugin name="cordova-plugin-screen-orientation" spec="^3.0.1" />
 </widget>

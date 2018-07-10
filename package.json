@@ -70,8 +70,7 @@
       "cordova-plugin-file-transfer": {},
       "cordova-plugin-android-permissions": {},
       "com-badrit-base64": {},
-      "cordova-plugin-statusbar": {},
-      "cordova-plugin-screen-orientation": {}
+      "cordova-plugin-statusbar": {}
     },
     "platforms": [
       "android"
