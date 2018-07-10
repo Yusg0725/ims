@@ -18,7 +18,8 @@ export class UserinfoPage {
 
   logOut(){
     this.appService.setItem(AppGlobal.cache["userObj"],null);
-    let modal = this.modalCtrl.create(LoginPage);
-    modal.present();
+    this.navCtrl.push(LoginPage);
+    // let modal = this.modalCtrl.create(LoginPage);
+    // modal.present();
   }
 }
