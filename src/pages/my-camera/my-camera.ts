@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import {FileTransfer, FileUploadOptions, FileTransferObject} from '@ionic-native/file-transfer';
-import {File} from '@ionic-native/file';
-import {stringify} from 'qs';
+import {FileTransfer, FileTransferObject} from '@ionic-native/file-transfer';
 import { AppserviceProvider, AppGlobal } from '../../providers/appservice/appservice';
 
 @IonicPage()
@@ -20,7 +18,6 @@ export class MyCameraPage {
     public navParams: NavParams,
     private camera: Camera,
     private transfer: FileTransfer,
-     private file: File,
      public appService: AppserviceProvider ) {
   }
 

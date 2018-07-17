@@ -1,68 +1,65 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { MyCameraPage } from '../my-camera/my-camera';
-import {  } from '@angular/core';
-
 @Component({
   selector: 'page-my',
   templateUrl: 'my.html'
 })
 export class MyPage {
-  gridList= [
+
+  gridList = [
     {
-      icon:'paper',
+      icon: 'paper',
       name: '日志',
       color: '#CCC',
-      url:''
+      url: '1'
     },
     {
-      icon:'hand',
+      icon: 'hand',
       name: '打卡',
       color: '#CCC',
-      url:''
+      url: '2'
     },
     {
-      icon:'contacts',
+      icon: 'contacts',
       name: '通讯录',
       color: '#CCC',
-      url:''
-    },{
-      icon:'paper',
+      url: 'MyContactUserPage'
+    }, {
+      icon: 'paper',
       name: '照相机',
       color: '#CCC',
-      url:''
+      url: 'MyCameraPage'
     },
     {
-      icon:'hand',
+      icon: 'hand',
       name: '定位',
       color: '#CCC',
-      url:''
+      url: '5'
     },
     {
-      icon:'contacts',
+      icon: 'contacts',
       name: '上传头像',
       color: '#CCC',
-      url:''
-    },{
-      icon:'paper',
+      url: '6'
+    }, {
+      icon: 'paper',
       name: '人脸识别',
       color: '#CCC',
-      url:''
+      url: '7'
     },
     {
-      icon:'hand',
+      icon: 'hand',
       name: '邮箱',
       color: '#CCC',
-      url:''
+      url: '8'
     },
     {
-      icon:'contacts',
-      name: '通讯录',
+      icon: 'hand',
+      name: '电话',
       color: '#CCC',
-      url:''
+      url: 'MyContactNumberPage'
     }
-    ]
-
+  ]
   constructor(public navCtrl: NavController) {
 
   }
@@ -71,7 +68,6 @@ export class MyPage {
    * 原理  : 假设size=3，则【1,2,3,4,5,6,7,8,9】=>【1，2，3】,【4，5，6】,【7,8,9】
    * */
   getRowListByGridList(size) {
-    console.log('网格集合', this.gridList)
     var rowList = []
     for (var i = 0; i < this.gridList.length; i += size) {
       rowList.push(this.gridList.slice(i, i + size));
@@ -79,7 +75,7 @@ export class MyPage {
     return rowList;
   }
 
-  doOperation(){
-    this.navCtrl.push(MyCameraPage);
+  doOperation(_page) {
+      this.navCtrl.push(_page);
   }
 }

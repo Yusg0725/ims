@@ -1,7 +1,6 @@
 import { Http, Jsonp, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import { LoadingController, AlertController, ToastController, ActionSheetController } from 'ionic-angular';
+import { LoadingController, AlertController, ToastController} from 'ionic-angular';
 
 @Injectable()
 export class AppGlobal {
@@ -25,8 +24,7 @@ export class AppGlobal {
 export class AppserviceProvider {
     private headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     constructor(public http: Http, public jsonp: Jsonp, public loadingCtrl: LoadingController, 
-        private alertCtrl: AlertController, private toastCtrl: ToastController, 
-        private actionsheetCtrl: ActionSheetController) {
+        private alertCtrl: AlertController, private toastCtrl: ToastController) {
 
     }
 

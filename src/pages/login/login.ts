@@ -1,17 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { AppserviceProvider, AppGlobal } from '../../providers/appservice/appservice';
 import 'rxjs/add/operator/map';
 //引入自定义组件模块
 import { TabsPage } from "../tabs/tabs";
 
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-@IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
@@ -35,7 +28,7 @@ export class LoginPage {
     }
     /*调用登录接口*/
     const url = AppGlobal.API["login"];
-    const userObj = this.appService.httpPost(url, { Account: username.value, Password: password.value },
+    this.appService.httpPost(url, { Account: username.value, Password: password.value },
       "登录成功,正在跳转……", "登录失败,账号或密码错误", (data)=> {
         if (data.status ==0) {
             this.appService.setItem(AppGlobal.cache["userObj"], data.result);

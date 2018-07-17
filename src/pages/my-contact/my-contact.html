@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>我的通讯录</ion-title>
+    <!-- 兼容增加返回按钮后，标题不居中 -->
+  <ion-buttons right>
+    <button ion-button clear style="width:70px;">
+  </button>
+</ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+<ion-tabs class="tabs-top" tabsPlacement="top" tabsLayout="icon-top">
+  <ion-tab [root]="tab1Root" tabTitle="拨号" tabIcon="call"></ion-tab>
+  <ion-tab [root]="tab2Root" tabTitle="通讯录" tabIcon="contact"></ion-tab>
+</ion-tabs>
+</ion-content>

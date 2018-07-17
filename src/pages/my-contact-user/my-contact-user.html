@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>我的通讯录</ion-title>
+    <!-- 兼容增加返回按钮后，标题不居中 -->
+    <ion-buttons right>
+      <button ion-button clear style="width:70px;">
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <ion-toolbar>
+    <ion-searchbar [placeholder]="'姓名'" [cancelButtonText]="'取消'" [(ngModel)]="searchInput" (ionCancel)="onCancel()" (ionClear)="onClear($event)"
+      (ionInput)="goSearchResult($event)"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+<!-- <ion-header class="bank" no-border>
+    <ion-navbar>
+      <ion-title>所有联系人</ion-title>
+    </ion-navbar>
+    <ion-toolbar>
+      <ion-searchbar
+      [placeholder]="'姓名'"
+      [cancelButtonText]="'取消'"
+      [(ngModel)]="searchInput"
+      (ionCancel)="onCancel()"
+      (ionClear)="onClear($event)"
+      (ionInput)="goSearchResult($event)"></ion-searchbar>
+    </ion-toolbar>
+  </ion-header> -->
+<!--左边导航-->
+<ion-content class="bank-from" isScrolling>
+  <div class="letter" *ngIf="!isSearching">
+    <div class="letter-right">
+      <span *ngFor="let letter of letters" (click)="scrollToTop(letter)">{{letter}}</span>
+    </div>
+  </div>
+  <!--搜索的结果 -->
+  <ion-list *ngIf="isSearching">
+    <ion-item-group *ngFor="let contacts of searchingItems;let i = index">
+      <ion-item-divider color="light" id="{{searchLetters[i]}}">{{searchLetters[i]}}</ion-item-divider>
+      <ion-item *ngFor="let contact of contacts" (click)="goBack(contact)">
+        <!--<ion-avatar item-start>-->
+        <!--</ion-avatar>-->
+        <h2 [innerHTML]="contact.userName | keyword:searchInput"></h2>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+  <!--未搜索的结果 -->
+  <ion-list *ngIf="!isSearching">
+    <ion-item-group *ngFor="let contacts of formatContacts;let i = index">
+      <ion-item-divider color="light" id="{{letters[i]}}">{{letters[i]}}</ion-item-divider>
+      <ion-item *ngFor="let contact of contacts" (click)="goBack(contact)">
+        <!--<ion-avatar item-start>-->
+
+        <!--</ion-avatar>-->
+        <h2 [innerHTML]="contact.userName | keyword:searchInput"></h2>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+</ion-content>

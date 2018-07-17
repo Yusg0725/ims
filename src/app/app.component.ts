@@ -5,12 +5,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from "../pages/login/login";
 import { TabsPage } from '../pages/tabs/tabs';
 import { AppserviceProvider, AppGlobal } from '../providers/appservice/appservice';
-import { WelcomePage } from '../pages/welcome/welcome';
-//引入http组件
-import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
-declare var $: any;
+
 @Component({
   templateUrl: 'app.html'//起始页
 })
