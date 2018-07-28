@@ -8,9 +8,10 @@ import { AppserviceProvider, AppGlobal } from '../../providers/appservice/appser
 export class SettingPage {
   userObj:any;
   userPage:any='UserinfoPage';
+  activityPage:any='SetActivityPage';
   constructor(public appService: AppserviceProvider, public navCtrl: NavController) {
-    this.appService.getItem(AppGlobal.cache["userObj"],(data)=>{
-      this.userObj=data;
+    this.appService.getItem(AppGlobal.cache.userObj,(data)=>{
+      this.userObj=data[0];
     });
   }
 }

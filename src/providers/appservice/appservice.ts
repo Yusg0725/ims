@@ -11,18 +11,22 @@ export class AppGlobal {
         firstIn:"_firstIn"
     };
     //接口基础地址
-    static domain = "http://192.168.0.62:8300";//http://118.190.96.161:8300
+    static domain = "http://192.168.0.62:3000";//http://118.190.96.161:8300
     //接口业务地址
     static API: any = {
-        login: "/api/Login/CheckLogin",
+        login: "/api/login/checklogin",
         getSlide: "/api/Home/GetSlides",
         upload:"/api/File/Upload",
-        download:"/api/File/Download"
+        download:"/api/File/Download",
+        getActivityNum:"/api/news/getcount",
+        getActivityList:"/api/news/getlist",
+        saveActivityForm:"/api/news/saveform",
+        deleteActivityForm:"/api/news/deleteform",
     };
 }
 @Injectable()
 export class AppserviceProvider {
-    private headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+    private headers = new Headers({ 'Content-Type': 'application/json; charset=UTF-8' });//x-www-form-urlencoded
     constructor(public http: Http, public jsonp: Jsonp, public loadingCtrl: LoadingController, 
         private alertCtrl: AlertController, private toastCtrl: ToastController) {
 
@@ -51,9 +55,9 @@ export class AppserviceProvider {
         this.http.get(AppGlobal.domain + url + this.encode(params))
             .toPromise()
             .then(res => {
-                var d = JSON.parse(res.json());//json字符串转化为对象
+                var d = JSON.parse(res["_body"]);//json字符串转化为对象y
                 if (loader) {
-                    if(d.status==0){
+                    if(d.length>0){
                         loading.setContent(smsg);
                     }else{
                         loading.setContent(fmsg);
@@ -79,19 +83,19 @@ export class AppserviceProvider {
         if (loader) {
             loading.present();
         }
-        this.http.post(AppGlobal.domain + url, params,{ headers: this.headers })
+        this.http.post(AppGlobal.domain + url, JSON.stringify(params),{ headers: this.headers })
             .toPromise()
             .then(res => {
-                var d = JSON.parse(res.json());//json字符串转化为对象
+                var d = JSON.parse(res["_body"]);//json字符串转化为对象
                 if (loader) {
-                    if(d.status==0){
+                    if(d.length>0){
                         loading.setContent(smsg);
                     }else{
                         loading.setContent(fmsg);
                     }
                     setTimeout(() => {
                         loading.dismiss();
-                    }, 2000);
+                    }, 1500);
                 }
                 callback(d == null ? "[]" : d);
             }).catch(error => {

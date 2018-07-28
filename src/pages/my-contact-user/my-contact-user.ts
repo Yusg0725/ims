@@ -154,83 +154,49 @@ export class MyContactUserPage {
 
       return new Pinyin(arguments);
     })();
-    let fields: ContactFieldType[] = ['displayName', 'phoneNumbers'];
-    let options = new ContactFindOptions();
-    options.filter = "";
-    options.multiple = true;
-    this.contacts.find(fields, options).then(data => {
-      data.forEach(element => {
-        console.log(element);
-        let obj: any = {};
-        obj.displayName = element.displayName;
-        obj.phoneNumber = element.phoneNumbers[0].value;
-        obj.pinyinName = pinyin.getFullChars(obj.displayName);
-
-        let camelChar = pinyin.getCamelChars(obj.displayName).substring(0, 1);
-        let j = 0;
-        let len = this.formatContacts.length;
-        for (j; j < len; j++) {
-          if (this.formatContacts[j].key == camelChar) {
-            this.formatContacts[j].value.push(obj);
-            break;
-          }
-        }
-        if (j == len) {
-          var arr = new Array();
-          arr.push(obj);
-          this.formatContacts[len] = {
-            key: camelChar,
-            value: arr
-          };
-        }
-        obj = null;
-
-        // if (!map[obj.camelChar]) {
-        //   _Contacts.push({
-        //     Group: obj.camelChar,
-        //     data: [obj]
-        //   });
-        //   map[obj.camelChar] = obj;
-        // } else {
-        //   _Contacts.forEach(element => {
-        //     if (element.camelChar == obj.camelChar) {
-        //       element.data.push(obj);
-        //     }
-        //   });
-        // }
-        // let obj: any = {};
-        // obj.displayName = element.displayName;
-        // obj.phoneNumber = element.phoneNumbers[0].value;
-        // obj.pinyinName = pinyin.getFullChars(obj.displayName);
-        // obj.camelChar = pinyin.getCamelChars(obj.displayName).substring(0, 1);
-        // _Contacts.push(obj);
-
+    
+    this.fetch((data) => {
+      this.remitBanks = data;
+      this.aLetters.forEach((res, index) => {
+            if(this.remitBanks[res] && this.remitBanks[res].lenght != 0) {
+              this.formatContacts.push(this.remitBanks[res]);
+              this.letters.push(res);
+            }
       });
-      debugger;
-      //debugger;
-      //console.log(_Contacts.length);
-      //let contactsLength = contacts.length;
-
-      // for (let index = 0; index < contactsLength; index++) {
-      //   let obj: any = {};
-      //   obj.displayName = contacts[index].displayName;
-      //   obj.phoneNumber = contacts[index].phoneNumbers[0].value;
-      //   obj.pinyinName = pinyin.getFullChars(obj.displayName);
-      //   obj.camelChar = pinyin.getCamelChars(obj.displayName).substring(0, 1);
-      //   _Contacts.push(obj);
-      // }
-
-      //this.remitBanks = _Contacts;
-      //  this.aLetters.forEach((res, index) => {
-      //    console.log(this.remitBanks[res]);
-      // if (this.remitBanks[res] && this.remitBanks[res].lenght != 0) {
-      //   this.formatContacts.push(this.remitBanks[res]);
-      //   this.letters.push(res);
-      // }
-      //  });
-
-
     });
+    
+    // let fields: ContactFieldType[] = ['displayName', 'phoneNumbers'];
+    // let options = new ContactFindOptions();
+    // options.filter = "";
+    // options.multiple = true;
+    // this.contacts.find(fields, options).then(data => {
+    //   data.forEach(element => {
+    //     console.log(element);
+    //     let obj: any = {};
+    //     obj.displayName = element.displayName;
+    //     obj.phoneNumber = element.phoneNumbers[0].value;
+    //     obj.pinyinName = pinyin.getFullChars(obj.displayName);
+
+    //     let camelChar = pinyin.getCamelChars(obj.displayName).substring(0, 1);
+    //     let j = 0;
+    //     let len = this.formatContacts.length;
+    //     for (j; j < len; j++) {
+    //       if (this.formatContacts[j].key == camelChar) {
+    //         this.formatContacts[j].value.push(obj);
+    //         break;
+    //       }
+    //     }
+    //     if (j == len) {
+    //       var arr = new Array();
+    //       arr.push(obj);
+    //       this.formatContacts[len] = {
+    //         key: camelChar,
+    //         value: arr
+    //       };
+    //     }
+    //     obj = null;
+    //  });
+    //});
   }
 
   fetch(data) {

@@ -8,71 +8,55 @@ export class MyPage {
 
   gridList = [
     {
-      icon: 'paper',
+      icon: 'paper-outline',
       name: '日志',
-      color: '#CCC',
+      color: 'bgcolor_d',
       url: '1'
     },
     {
-      icon: 'hand',
+      icon: 'hand-outline',
       name: '打卡',
-      color: '#CCC',
+      color: 'bgcolor_a',
       url: '2'
     },
     {
-      icon: 'contacts',
-      name: '通讯录',
-      color: '#CCC',
+      icon: 'people-outline',
+      name: '联系人',
+      color: 'bgcolor_b',
       url: 'MyContactUserPage'
-    }, {
-      icon: 'paper',
+    }, 
+    {
+      icon: 'camera-outline',
       name: '照相机',
-      color: '#CCC',
+      color: 'bgcolor_c',
       url: 'MyCameraPage'
     },
     {
-      icon: 'hand',
+      icon: 'pin-outline',
       name: '定位',
-      color: '#CCC',
+      color: 'bgcolor_d',
       url: '5'
     },
     {
-      icon: 'contacts',
+      icon: 'image-outline',
       name: '上传头像',
-      color: '#CCC',
+      color: 'bgcolor_e',
       url: '6'
     }, {
-      icon: 'paper',
+      icon: 'ionitron-outline',
       name: '人脸识别',
-      color: '#CCC',
+      color: 'bgcolor_f',
       url: '7'
     },
     {
-      icon: 'hand',
-      name: '邮箱',
-      color: '#CCC',
-      url: '8'
-    },
-    {
-      icon: 'hand',
+      icon: 'call-outline',
       name: '电话',
-      color: '#CCC',
+      color: 'bgcolor_g',
       url: 'MyContactNumberPage'
     }
   ]
   constructor(public navCtrl: NavController) {
 
-  }
-  /*
-   * size : 一行分为size列
-   * 原理  : 假设size=3，则【1,2,3,4,5,6,7,8,9】=>【1，2，3】,【4，5，6】,【7,8,9】
-   * */
-  getRowListByGridList(size) {
-    var rowList = []
-    for (var i = 0; i < this.gridList.length; i += size) {
-      rowList.push(this.gridList.slice(i, i + size));
-    }
-    return rowList;
   }
 
   doOperation(_page) {

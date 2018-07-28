@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-navbar>
+    <ion-navbar color="primary">
         <ion-title>
             设置
         </ion-title>
@@ -17,8 +17,8 @@
         </button>
     </ion-list>
 
-    <ion-list>
-        <button ion-item detail-none class='item-small' [navPush]="">
+    <ion-list no-lines>
+        <button ion-item detail-push class='item-small' [navPush]="activityPage">
             <ion-avatar item-left>
                 <ion-icon name="cafe" class="item-icon"></ion-icon>
             </ion-avatar>
@@ -38,12 +38,12 @@
         </button>
     </ion-list>
 
-    <ion-list>
-        <button ion-item>
+    <ion-list no-lines>
+        <button ion-item class='item-small'>
             版本号
             <span item-end>V1.0</span>
         </button>
-        <button ion-item>
+        <button ion-item class='item-small'>
             关于
         </button>
     </ion-list>

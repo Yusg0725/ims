@@ -27,13 +27,11 @@ export class LoginPage {
       return false;
     }
     /*调用登录接口*/
-    const url = AppGlobal.API["login"];
-    this.appService.httpPost(url, { Account: username.value, Password: password.value },
+    const url = AppGlobal.API.login;
+    this.appService.httpPost(url, { Account: username.value, PassWord: password.value },
       "登录成功,正在跳转……", "登录失败,账号或密码错误", (data)=> {
-        if (data.status ==0) {
-            this.appService.setItem(AppGlobal.cache["userObj"], data.result);
+            this.appService.setItem(AppGlobal.cache.userObj, data[0]);
             this.navCtrl.push(TabsPage);
-        }
       }, true);
   }
 }

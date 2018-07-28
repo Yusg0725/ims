@@ -13,6 +13,7 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 import { CallNumber } from '@ionic-native/call-number';
 import { Contacts } from '@ionic-native/contacts';
 import { Base64 } from '@ionic-native/base64';
+import { QuillModule } from 'ngx-quill';
 
 import { MyPage } from '../pages/my/my';
 import { SettingPage } from '../pages/setting/setting';
@@ -38,6 +39,7 @@ import { AppserviceProvider,AppGlobal } from '../providers/appservice/appservice
     ComponentsModule,
     HttpModule,
     JsonpModule,
+    QuillModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp,{
       backButtonText:'',

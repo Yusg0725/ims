@@ -33,12 +33,22 @@ export class MyApp {
       setTimeout(() => {
         splashScreen.hide();
       }, 1000)
+
+      //扩展API加载完成事件
+      document.addEventListener("plusready", () => {
+
+      });
+      //设备网络状态变化事件
+      document.addEventListener("netchange", () => {
+
+      });
+      //运行环境从后台切换到前台事件
       document.addEventListener("resume", () => {
 
         console.log("resume"); //进入，前台展示
 
       }, false);
-
+      //运行环境从前台切换到后台事件
       document.addEventListener("pause", () => {
 
         console.log("pause"); //退出，后台运行
