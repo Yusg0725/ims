@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>活动</ion-title>
+    <ion-buttons right>
+      <button ion-button navPop (click)="saveForm()" style="font-size:24px;width:60px;">
+        <ion-icon name="checkmark-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content class="ys-content">
+  <ion-grid style="margin:0px;padding:0px;">
+    <ion-row>
+      <ion-col class="ys-title">
+        标题
+        <font color="red">*</font>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ys-value">
+        <input id="fullhead" type="text" [(ngModel)]="entity.FullHead">
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ys-title">
+        标题颜色
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ys-value">
+        <ion-range (ionChange)="changecolorTitle()" min="0" max="17" step="1" snaps="true"  [(ngModel)]="colorValue"></ion-range>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col class="ys-title">
+          作者
+          <font color="red">*</font>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="ys-value">
+          <input id="fullhead" type="text" [(ngModel)]="entity.AuthorName">
+        </ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col class="ys-title">
+            来源
+            <font color="red">*</font>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="ys-value">
+            <input id="fullhead" type="text" [(ngModel)]="entity.SourceName">
+          </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col class="ys-title">
+              内容
+              <font color="red">*</font>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="ys-value">
+              <quill-editor [(ngModel)]="entity.NewsContent"></quill-editor>
+            </ion-col>
+          </ion-row>
+  </ion-grid>
+
+</ion-content>

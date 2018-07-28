@@ -1,15 +1,17 @@
 <ion-header>
-    <ion-navbar>
-      <ion-title>我的相机</ion-title>
-    </ion-navbar>
+  <ion-navbar>
+    <ion-title>我的相机</ion-title>
     <!-- 兼容增加返回按钮后，标题不居中 -->
     <ion-buttons right>
-        <button ion-button clear style="width:70px;">
+      <button ion-button clear style="width:70px;">
       </button>
     </ion-buttons>
-  </ion-header>
+  </ion-navbar>
+</ion-header>
+
+
 <ion-content>
-  <div style="float:left;padding-left:5px;margin-top:10px;width:100%;">
+  <div style="float:left;padding-left:5px;font-size:14px;margin-top:10px;width:100%;">
     <button ion-button (click)="openCamera(1)">打开摄像头</button>
     <button ion-button (click)="openCamera(2)">打开相册</button>
     <button ion-button (click)="upload()">文件上传</button>

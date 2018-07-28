@@ -5,12 +5,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from "../pages/login/login";
 import { TabsPage } from '../pages/tabs/tabs';
 import { AppserviceProvider, AppGlobal } from '../providers/appservice/appservice';
-import { WelcomePage } from '../pages/welcome/welcome';
-//引入http组件
-import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
-declare var $: any;
+
 @Component({
   templateUrl: 'app.html'//起始页
 })
@@ -36,12 +33,22 @@ export class MyApp {
       setTimeout(() => {
         splashScreen.hide();
       }, 1000)
+
+      //扩展API加载完成事件
+      document.addEventListener("plusready", () => {
+
+      });
+      //设备网络状态变化事件
+      document.addEventListener("netchange", () => {
+
+      });
+      //运行环境从后台切换到前台事件
       document.addEventListener("resume", () => {
 
         console.log("resume"); //进入，前台展示
 
       }, false);
-
+      //运行环境从前台切换到后台事件
       document.addEventListener("pause", () => {
 
         console.log("pause"); //退出，后台运行

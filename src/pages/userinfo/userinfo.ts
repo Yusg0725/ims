@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, ModalController,NavController, NavParams } from 'ionic-angular';
 import { AppserviceProvider, AppGlobal } from '../../providers/appservice/appservice';
-import  {LoginPage} from "../login/login";
-
+import { LoginPage } from '../../pages/login/login';
 @IonicPage()
 @Component({
   selector: 'page-userinfo',
@@ -18,7 +17,8 @@ export class UserinfoPage {
 
   logOut(){
     this.appService.setItem(AppGlobal.cache["userObj"],null);
-    let modal = this.modalCtrl.create(LoginPage);
-    modal.present();
+    this.navCtrl.push(LoginPage);
+    // let modal = this.modalCtrl.create(LoginPage);
+    // modal.present();
   }
 }

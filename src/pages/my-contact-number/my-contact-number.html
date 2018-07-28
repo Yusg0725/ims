@@ -1,0 +1,100 @@
+<ion-header>
+    <ion-navbar>
+      <ion-title>我的电话</ion-title>
+      <!-- 兼容增加返回按钮后，标题不居中 -->
+    <ion-buttons right>
+      <button ion-button clear style="width:70px;">
+    </button>
+  </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+<ion-content>
+  <ion-input value="{{phonenumber}}" class="phonenumber"></ion-input>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <button ion-button icon-start (click)="doOperation('1')">
+          1
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button icon-start (click)="doOperation('2')">
+          2
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button icon-start (click)="doOperation('3')">
+          3
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button ion-button icon-start (click)="doOperation('4')">
+          4
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button icon-start (click)="doOperation('5')">
+          5
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button icon-start (click)="doOperation('6')">
+          6
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button ion-button icon-start (click)="doOperation('7')">
+          7
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button icon-start (click)="doOperation('8')">
+          8
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button icon-start (click)="doOperation('9')">
+          9
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button ion-button icon-start (click)="doOperation('*')">
+          *
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button icon-start (click)="doOperation('0')">
+          0
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button icon-start (click)="doOperation('#')">
+          #
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button ion-button icon-start value="" (click)="call()">
+          卡一拨号
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button icon-start value="" (click)="call()">
+          卡二拨号
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button icon-start (click)="doOperation('-1')">
+          回退
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

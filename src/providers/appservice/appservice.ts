@@ -1,7 +1,6 @@
 import { Http, Jsonp, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import { LoadingController, AlertController, ToastController, ActionSheetController } from 'ionic-angular';
+import { LoadingController, AlertController, ToastController} from 'ionic-angular';
 
 @Injectable()
 export class AppGlobal {
@@ -22,15 +21,18 @@ export class AppGlobal {
         getNews:"/api/news/getlist",
         newsSaveform:"/api/news/saveform",
         newsRemoveform:"/api/news/deleteform",
-        newsInfo:"/api/news/getdetail"
+        newsInfo:"/api/news/getdetail",
+        getActivityNum:"/api/news/getcount",
+        getActivityList:"/api/news/getlist",
+        saveActivityForm:"/api/news/saveform",
+        deleteActivityForm:"/api/news/deleteform"
     };
 } 
 @Injectable()
 export class AppserviceProvider {
-    private headers = new Headers({ 'Content-Type': 'application/json; charset=UTF-8' });
+    private headers = new Headers({ 'Content-Type': 'application/json; charset=UTF-8' });//x-www-form-urlencoded
     constructor(public http: Http, public jsonp: Jsonp, public loadingCtrl: LoadingController, 
-        private alertCtrl: AlertController, private toastCtrl: ToastController, 
-        private actionsheetCtrl: ActionSheetController) {
+        private alertCtrl: AlertController, private toastCtrl: ToastController) {
 
     }
 
@@ -57,7 +59,7 @@ export class AppserviceProvider {
         this.http.get(AppGlobal.domain + url + this.encode(params))
             .toPromise()
             .then(res => {
-                var d = JSON.parse(res["_body"]);//json字符串转化为对象
+                var d = JSON.parse(res["_body"]);//json字符串转化为对象y
                 if (loader) {
                     if(d.length>0){
                         loading.setContent(smsg);
@@ -85,7 +87,8 @@ export class AppserviceProvider {
         if (loader) {
             loading.present();
         }
-        this.http.post(AppGlobal.domain + url,JSON.stringify(params) ,{ headers: this.headers })
+
+        this.http.post(AppGlobal.domain + url, JSON.stringify(params),{ headers: this.headers })
             .toPromise()
             .then(res => {
                 var d = JSON.parse(res["_body"]);//json字符串转化为对象
@@ -97,7 +100,7 @@ export class AppserviceProvider {
                     }
                     setTimeout(() => {
                         loading.dismiss();
-                    }, 2000);
+                    }, 1500);
                 }
                 callback(d == null ? "[]" : d);
             }).catch(error => {
