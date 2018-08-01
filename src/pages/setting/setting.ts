@@ -9,6 +9,7 @@ export class SettingPage {
   userObj:any;
   userPage:any='UserinfoPage';
   activityPage:any='SetActivityPage';
+  newsPage:any='NewsPage';
   constructor(public appService: AppserviceProvider, public navCtrl: NavController) {
     this.appService.getItem(AppGlobal.cache.userObj,(data)=>{
       this.userObj=data[0];

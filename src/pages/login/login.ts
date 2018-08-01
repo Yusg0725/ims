@@ -27,6 +27,7 @@ export class LoginPage {
       return false;
     }
     /*调用登录接口*/
+
     const url = AppGlobal.API.login;
     this.appService.httpPost(url, { Account: username.value, PassWord: password.value },
       "登录成功,正在跳转……", "登录失败,账号或密码错误", (data)=> {

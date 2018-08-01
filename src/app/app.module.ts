@@ -10,8 +10,8 @@ import { HttpClientModule} from '@angular/common/http';
 import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
-import { CallNumber } from '@ionic-native/call-number';
-import { Contacts } from '@ionic-native/contacts';
+// import { CallNumber } from '@ionic-native/call-number';
+// import { Contacts } from '@ionic-native/contacts';
 import { Base64 } from '@ionic-native/base64';
 import { QuillModule } from 'ngx-quill';
 import { PipesModule } from '../pipes/pipes.module';
@@ -21,7 +21,10 @@ import { MyPage } from '../pages/my/my';
 import { SettingPage } from '../pages/setting/setting';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
-import { LoginPage } from '../pages/login/login';
+import { LoginPage} from '../pages/login/login';
+import { WelcomePage} from '../pages/welcome/welcome';
+import { UserinfoPage} from '../pages/userinfo/userinfo';
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { SetActivityAddPage } from '../pages/set-activity-add/set-activity-add';
@@ -36,7 +39,9 @@ import { AppserviceProvider,AppGlobal } from '../providers/appservice/appservice
     HomePage,
     TabsPage,
     LoginPage,
-    SetActivityAddPage
+    SetActivityAddPage,
+    WelcomePage,
+    UserinfoPage,
   ],
   imports: [
     BrowserModule,
@@ -66,7 +71,9 @@ import { AppserviceProvider,AppGlobal } from '../providers/appservice/appservice
     HomePage,
     TabsPage,
     LoginPage,
-    SetActivityAddPage
+    SetActivityAddPage,
+    WelcomePage,
+    UserinfoPage,
   ],
   providers: [
     StatusBar,
@@ -76,8 +83,8 @@ import { AppserviceProvider,AppGlobal } from '../providers/appservice/appservice
     AppGlobal,
     Camera,
     File,
-    CallNumber,
-    Contacts,
+    // CallNumber,
+    // Contacts,
     FileTransfer,
     Base64,
     AbbyyRTR

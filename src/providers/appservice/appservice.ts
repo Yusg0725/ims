@@ -23,8 +23,12 @@ export class AppGlobal {
         getActivityDetail: "/api/news/getdetail",
         saveActivityForm: "/api/news/saveform",
         deleteActivityForm: "/api/news/deleteform",
+        getNews:"/api/news/getlist",
+        newsSaveform:"/api/news/saveform",
+        newsRemoveform:"/api/news/deleteform",
+        newsInfo:"/api/news/getdetail"
     };
-}
+} 
 @Injectable()
 export class AppserviceProvider {
     private headers = new Headers({ 'Content-Type': 'application/json; charset=UTF-8' });//x-www-form-urlencoded
