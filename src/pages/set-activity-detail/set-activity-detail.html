@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>活动详情</ion-title>
+    <ion-buttons right>
+      <button ion-button (click)="editForm()" style="font-size:24px;width:30px;">
+        <ion-icon name="create-outline"></ion-icon>
+      </button>
+      <button ion-button (click)="deleteForm()" style="font-size:24px;width:30px;">
+        <ion-icon name="trash-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content class="ys-content">
+  <ion-grid style="margin:0px;padding:0px;">
+      <ion-row>
+          <ion-col class="ys-value" style="height:30px;line-height:25px;">
+            创建于 {{entity.CreateDate|date:'yyyy-MM-dd HH:mm:ss'}}
+          </ion-col>
+        </ion-row>
+    <ion-row>
+      <ion-col class="ys-value">
+        标题：{{entity.FullHead}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ys-value">
+        作者：{{entity.AuthorName}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ys-value">
+        来源：{{entity.SourceName}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ys-value" style="height:100%;">
+        内容：<div [innerHTML]="entity.NewsContent"></div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,6 +1,6 @@
 import { Http, Jsonp, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
-import { LoadingController, AlertController, ToastController} from 'ionic-angular';
+import { LoadingController, AlertController, ToastController } from 'ionic-angular';
 
 @Injectable()
 export class AppGlobal {
@@ -8,7 +8,7 @@ export class AppGlobal {
     static cache: any = {
         userObj: "_userobj",
         homeRight: "_homeright",
-        firstIn:"_firstIn"
+        firstIn: "_firstIn"
     };
     //接口基础地址
     static domain = "http://192.168.0.62:3000";//http://118.190.96.161:8300
@@ -16,18 +16,19 @@ export class AppGlobal {
     static API: any = {
         login: "/api/login/checklogin",
         getSlide: "/api/Home/GetSlides",
-        upload:"/api/File/Upload",
-        download:"/api/File/Download",
-        getActivityNum:"/api/news/getcount",
-        getActivityList:"/api/news/getlist",
-        saveActivityForm:"/api/news/saveform",
-        deleteActivityForm:"/api/news/deleteform",
+        upload: "/api/File/Upload",
+        download: "/api/File/Download",
+        getActivityNum: "/api/news/getcount",
+        getActivityList: "/api/news/getlist",
+        getActivityDetail: "/api/news/getdetail",
+        saveActivityForm: "/api/news/saveform",
+        deleteActivityForm: "/api/news/deleteform",
     };
 }
 @Injectable()
 export class AppserviceProvider {
     private headers = new Headers({ 'Content-Type': 'application/json; charset=UTF-8' });//x-www-form-urlencoded
-    constructor(public http: Http, public jsonp: Jsonp, public loadingCtrl: LoadingController, 
+    constructor(public http: Http, public jsonp: Jsonp, public loadingCtrl: LoadingController,
         private alertCtrl: AlertController, private toastCtrl: ToastController) {
 
     }
@@ -47,8 +48,8 @@ export class AppserviceProvider {
         return str;
     }
 
-    httpGet(url, params,smsg,fmsg, callback, loader: boolean = false) {
-        let loading = this.loadingCtrl.create({content:"加载中……"});
+    httpGet(url, params, smsg, fmsg, callback, loader: boolean = false) {
+        let loading = this.loadingCtrl.create({ content: "加载中……" });
         if (loader) {
             loading.present();
         }
@@ -57,9 +58,9 @@ export class AppserviceProvider {
             .then(res => {
                 var d = JSON.parse(res["_body"]);//json字符串转化为对象y
                 if (loader) {
-                    if(d.length>0){
+                    if (d.length > 0) {
                         loading.setContent(smsg);
-                    }else{
+                    } else {
                         loading.setContent(fmsg);
                     }
                     setTimeout(() => {
@@ -78,19 +79,19 @@ export class AppserviceProvider {
             });
     }
 
-    httpPost(url, params, smsg,fmsg,callback, loader: boolean = false) {
-        let loading = this.loadingCtrl.create({content:"加载中……"});
+    httpPost(url, params, smsg, fmsg, callback, loader: boolean = false) {
+        let loading = this.loadingCtrl.create({ content: "加载中……" });
         if (loader) {
             loading.present();
         }
-        this.http.post(AppGlobal.domain + url, JSON.stringify(params),{ headers: this.headers })
+        this.http.post(AppGlobal.domain + url, JSON.stringify(params), { headers: this.headers })
             .toPromise()
             .then(res => {
                 var d = JSON.parse(res["_body"]);//json字符串转化为对象
                 if (loader) {
-                    if(d.length>0){
+                    if (d.length > 0 || d != null) {
                         loading.setContent(smsg);
-                    }else{
+                    } else {
                         loading.setContent(fmsg);
                     }
                     setTimeout(() => {
@@ -161,7 +162,12 @@ export class AppserviceProvider {
                 buttons: [{
                     text: "确定",
                     handler: data => {
-                        callback();
+                        callback(1);
+                    }
+                }, {
+                    text: "取消",
+                    handler: data => {
+                        callback(0);
                     }
                 }]
             });
@@ -189,15 +195,15 @@ export class AppserviceProvider {
         }
     }
 
-    loading(message,callback?){
+    loading(message, callback?) {
         let loading = this.loadingCtrl.create({
             content: message
-          });
-        
+        });
+
         loading.present();
-    
+
         setTimeout(() => {
-        loading.dismiss();
+            loading.dismiss();
         }, 2000);
         if (callback) {
             callback();
@@ -216,10 +222,10 @@ export class AppserviceProvider {
     getItem(key: string, callback) {
         try {
             var json = window.localStorage[key];
-            var obj=null;
-            if(json!=null&&typeof(json)!="undefined"){
-                obj= JSON.parse(json);
-            } 
+            var obj = null;
+            if (json != null && typeof (json) != "undefined") {
+                obj = JSON.parse(json);
+            }
             callback(obj);
         }
         catch (e) {

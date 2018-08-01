@@ -1,4 +1,4 @@
-page-set-activity-add {
+page-set-activity-detail {
     .toolbar-title-md {
         text-align: center;
     }
@@ -12,13 +12,9 @@ page-set-activity-add {
     }
     .ys-value{
         height:45px;
-        padding-left:10px;
+        line-height:40px;
+        padding-left:20px;
         background-color:rgb(255, 255, 255);
-    }
-    .ys-value input{
-        width:100%;
-        height:35px;
-        border-radius:5px;
-        border: 1px dotted #EEE;
+        border-bottom:1px dotted #eee;
     }
 }

@@ -53,6 +53,16 @@ export class MyPage {
       name: '电话',
       color: 'bgcolor_g',
       url: 'MyContactNumberPage'
+    },{
+      icon: 'paper-outline',
+      name: '支付宝',
+      color: 'bgcolor_d',
+      url: 'MyAlipayPage'
+    },{
+      icon: 'hand-outline',
+      name: '扫一扫',
+      color: 'bgcolor_a',
+      url: 'MyQrScannerPage'
     }
   ]
   constructor(public navCtrl: NavController) {

@@ -14,6 +14,8 @@ import { CallNumber } from '@ionic-native/call-number';
 import { Contacts } from '@ionic-native/contacts';
 import { Base64 } from '@ionic-native/base64';
 import { QuillModule } from 'ngx-quill';
+import { PipesModule } from '../pipes/pipes.module';
+import { AbbyyRTR } from '@ionic-native/abbyy-rtr';
 
 import { MyPage } from '../pages/my/my';
 import { SettingPage } from '../pages/setting/setting';
@@ -22,6 +24,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { SetActivityAddPage } from '../pages/set-activity-add/set-activity-add';
 
 import { AppserviceProvider,AppGlobal } from '../providers/appservice/appservice';
 
@@ -32,7 +35,8 @@ import { AppserviceProvider,AppGlobal } from '../providers/appservice/appservice
     SettingPage,
     HomePage,
     TabsPage,
-    LoginPage
+    LoginPage,
+    SetActivityAddPage
   ],
   imports: [
     BrowserModule,
@@ -41,6 +45,7 @@ import { AppserviceProvider,AppGlobal } from '../providers/appservice/appservice
     JsonpModule,
     QuillModule,
     HttpClientModule,
+    PipesModule,
     IonicModule.forRoot(MyApp,{
       backButtonText:'',
       backButtonIcon:'ios-arrow-back',
@@ -60,7 +65,8 @@ import { AppserviceProvider,AppGlobal } from '../providers/appservice/appservice
     SettingPage,
     HomePage,
     TabsPage,
-    LoginPage
+    LoginPage,
+    SetActivityAddPage
   ],
   providers: [
     StatusBar,
@@ -73,7 +79,8 @@ import { AppserviceProvider,AppGlobal } from '../providers/appservice/appservice
     CallNumber,
     Contacts,
     FileTransfer,
-    Base64
+    Base64,
+    AbbyyRTR
   ]
 })
 export class AppModule {}

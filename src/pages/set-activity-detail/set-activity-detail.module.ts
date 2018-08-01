@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { SetActivityPage } from './set-activity';
+import { SetActivityDetailPage } from './set-activity-detail';
 import { PipesModule } from '../../pipes/pipes.module';
 
 @NgModule({
   declarations: [
-    SetActivityPage,
+    SetActivityDetailPage,
   ],
   imports: [
     PipesModule,
-    IonicPageModule.forChild(SetActivityPage),
+    IonicPageModule.forChild(SetActivityDetailPage),
   ],
 })
-export class SetActivityPageModule {}
+export class SetActivityDetailPageModule {}

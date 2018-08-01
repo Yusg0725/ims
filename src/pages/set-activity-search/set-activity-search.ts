@@ -5,13 +5,13 @@ import { SetActivityAddPage } from '../../pages/set-activity-add/set-activity-ad
 
 @IonicPage()
 @Component({
-  selector: 'page-set-activity',
-  templateUrl: 'set-activity.html',
+  selector: 'page-set-activity-search',
+  templateUrl: 'set-activity-search.html',
 })
-export class SetActivityPage {
+export class SetActivitySearchPage {
+  myInput:any="";
   activity = SetActivityAddPage;
   activityDetail = 'SetActivityDetailPage';
-  activitySearch = 'SetActivitySearchPage';
   pageList = [];
   totalNum = 0;
   pageNum = 0;
@@ -19,20 +19,24 @@ export class SetActivityPage {
   isSearching = false;
   tempinfinite: any = null;
   constructor(public appService: AppserviceProvider, public navCtrl: NavController, public navParams: NavParams) {
-    this.getList(null, null, true);
+    //this.getList(null, null, true);
   }
 
+  Search(){
+    this.pageNum = 0;
+    this.getList(null, null, true);
+  }
   getList(Refresh, infiniteScroll, flag) {
     if (this.tempinfinite == null && infiniteScroll != null) {
       this.tempinfinite = infiniteScroll;
     }
     const numlist = AppGlobal.API.getActivityNum;
-    this.appService.httpGet(numlist, { TypeId: 3 }, "", "", (data) => {
+    this.appService.httpGet(numlist, { TypeId: 3,FullHead:this.myInput }, "", "", (data) => {
       this.totalNum = data[0][0]["num"];
     }, false);
 
     const listurl = AppGlobal.API.getActivityList;
-    this.appService.httpGet(listurl, { PageNum: this.pageNum, PageSize: this.pageSize, TypeId: 3 }, "", "", (data) => {
+    this.appService.httpGet(listurl, { PageNum: this.pageNum, PageSize: this.pageSize, TypeId: 3,FullHead:this.myInput }, "", "", (data) => {
       this.pageNum += 1;
       if (data[0].length < 10) {
         if (this.tempinfinite != null) {
