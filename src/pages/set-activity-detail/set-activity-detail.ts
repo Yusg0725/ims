@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AppGlobal,AppserviceProvider } from '../../providers/appservice/appservice';
 import { SetActivityAddPage } from '../../pages/set-activity-add/set-activity-add';
-
 @IonicPage()
 @Component({
   selector: 'page-set-activity-detail',
