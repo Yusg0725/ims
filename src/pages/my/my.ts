@@ -62,7 +62,7 @@ export class MyPage {
       icon: 'hand-outline',
       name: '扫一扫',
       color: 'bgcolor_a',
-      url: 'MyQrScannerPage'
+      url: 'MyZbarPage'
     }
   ]
   constructor(public navCtrl: NavController) {
