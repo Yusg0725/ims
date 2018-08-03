@@ -25,7 +25,12 @@ export class AppGlobal {
         getActivityNum:"/api/news/getcount",
         getActivityList:"/api/news/getlist",
         saveActivityForm:"/api/news/saveform",
-        deleteActivityForm:"/api/news/deleteform"
+        deleteActivityForm:"/api/news/deleteform",
+        getDiaryCount:"/api/diary/getcount",
+        getDiaryList:"/api/diary/getlist",
+        getDiaryDetail:"/api/diary/getdetail",
+        setDiarySaveform:"/api/diary/saveform",
+        setDiaryDeleteform:"/api/diary/deleteform"
     };
 } 
 @Injectable()

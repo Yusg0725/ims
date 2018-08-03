@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams} from 'ionic-angular';
 import { AppserviceProvider, AppGlobal } from '../../providers/appservice/appservice';
-
+import { NewsaddPage} from '../newsadd/newsadd';
 @IonicPage()
 @Component({
   selector: 'page-news',
@@ -9,60 +9,51 @@ import { AppserviceProvider, AppGlobal } from '../../providers/appservice/appser
 })
 export class NewsPage {
   public list = [];
-  public count = 0;
-  public page = 0;
-  public pagesize = 9;
-  public result = false;
-
+  public page=0;
+  public pagesize = 4;
+  public pageNum=0;
   pagination: any;
-  NewsaddPage:any="NewsaddPage";
+  // public NewsaddPage=NewsaddPage;//新增新闻页面
   NewscontentPage: any = 'NewscontentPage';
 
   constructor(public appService: AppserviceProvider, public navCtrl: NavController, public navParams: NavParams) {
-    this.refresh('');
+    this.getList('');
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad NewsPage');
   }
-  refresh(Infinite) {
-    this.pagination = { "page": this.page, "records": 0, "rows": 20 };
+  getList(Infinite){
+    const numlist=AppGlobal.API.getActivityNum;
+    this.appService.httpGet(numlist,{TypeId:1},"","",(data)=>{
+      this.pageNum=data[0][0]["num"];
+    },false);
+    const listurl=AppGlobal.API.getActivityList;
+    this.appService.httpGet(listurl,{PageNum:this.page,PageSize:4,TypeId:1},"请求成功","请求失败",(data)=>{
+     
+      if (data[0].length == 0 || data[0].length < this.pagesize) {
+        Infinite.enable(false);
+        
+      } else {
 
-    /*调用获取列表接口*/
-    const url = AppGlobal.API["getNews"];
-    const userObj = this.appService.httpGet(url, { PageSize: this.pagesize, PageNum: this.page, TypeId: 1 },
-      "", "获取失败", (data) => {
-        console.log(data);
-        if (data[0].length == 0 || data[0].length < this.pagesize) {
-          Infinite.enable(false);
+        this.page++;
 
-        } else {
-
-          this.page++;
-
-          this.list = this.list.concat(data[0]);
-          console.log("list:" + this.list);
-        }
-
-      }, true);
-    if (Infinite) {
-      Infinite.complete();
-    }
-
-
+        this.list = this.list.concat(data[0]);
+      }
+      console.log("data:"+data[0]);
+      console.log("list:"+this.list);
+      // this.list=this.list.unshift(data[0]) ;
+   
+    },true);
   }
-  doRefresh(Infinite) {
+
+  doRefresh(refresher) {
+    
     setTimeout(() => {
-      this.refresh(Infinite);
-    }, 1000);
-
+      this.getList(refresher);
+      refresher.complete();
+    }, 2000);
   }
-
-  //   getInfo(keyValue)
-  //   {
-  // this.navCtrl.push()
-
-  //   }
   presentConfirm(keyValue) {
     console.log(keyValue);
     this.appService.alert("确定删除这条新闻吗?", () => {
@@ -71,14 +62,18 @@ export class NewsPage {
       const userObj = this.appService.httpPost(url, { NewsId: keyValue },
         "删除成功", "删除失败", (data) => {
           this.list = [];
-          this.page = 0;
-          this.refresh("");
+          this.page=0;
+          this.getList('');
           console.log(data);
         }, true);
     });
   }
 
   getinfo() {
-    this.navCtrl.push('NewsaddPage');
+     console.log("进来了点击的方法");
+    this.navCtrl.push(NewsaddPage);
+  }
+  openSearch(){
+
   }
 }

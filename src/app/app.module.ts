@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { ComponentsModule } from '../components/components.module';
 import { MyApp } from './app.component';
+import {FormsModule} from '@angular/forms';
 
 import { HttpModule,JsonpModule} from '@angular/http';
 import { HttpClientModule} from '@angular/common/http';
@@ -13,7 +14,8 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 // import { CallNumber } from '@ionic-native/call-number';
 // import { Contacts } from '@ionic-native/contacts';
 import { Base64 } from '@ionic-native/base64';
-import { QuillModule } from 'ngx-quill';
+import {QuillModule}from 'ngx-quill';
+import {SQLite} from "@ionic-native/sqlite";
 
 import { MyPage } from '../pages/my/my';
 import { SettingPage } from '../pages/setting/setting';
@@ -22,11 +24,13 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage} from '../pages/login/login';
 import { WelcomePage} from '../pages/welcome/welcome';
 import { UserinfoPage} from '../pages/userinfo/userinfo';
-
+import { NewsaddPage} from '../pages/newsadd/newsadd';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { AppserviceProvider,AppGlobal } from '../providers/appservice/appservice';
+import { SqliteProvider } from '../providers/sqlite/sqlite';
+
 
 @NgModule({
   declarations: [
@@ -38,6 +42,7 @@ import { AppserviceProvider,AppGlobal } from '../providers/appservice/appservice
     LoginPage,
     WelcomePage,
     UserinfoPage,
+    NewsaddPage,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +50,7 @@ import { AppserviceProvider,AppGlobal } from '../providers/appservice/appservice
     HttpModule,
     JsonpModule,
     QuillModule,
+    FormsModule,
     HttpClientModule,
     QuillModule,
     IonicModule.forRoot(MyApp,{
@@ -69,6 +75,7 @@ import { AppserviceProvider,AppGlobal } from '../providers/appservice/appservice
     LoginPage,
     WelcomePage,
     UserinfoPage,
+    NewsaddPage,
   ],
   providers: [
     StatusBar,
@@ -78,10 +85,12 @@ import { AppserviceProvider,AppGlobal } from '../providers/appservice/appservice
     AppGlobal,
     Camera,
     File,
+    SQLite,
     // CallNumber,
     // Contacts,
     FileTransfer,
-    Base64
-  ]
+    Base64,
+    SqliteProvider
+]
 })
 export class AppModule {}
