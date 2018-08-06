@@ -2,78 +2,118 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams} from 'ionic-angular';
 import { AppserviceProvider, AppGlobal } from '../../providers/appservice/appservice';
 import { NewsaddPage} from '../newsadd/newsadd';
+
+
 @IonicPage()
 @Component({
   selector: 'page-news',
   templateUrl: 'news.html',
 })
 export class NewsPage {
-  public list = [];
-  public page=0;
-  public pagesize = 4;
-  public pageNum=0;
-  pagination: any;
-  // public NewsaddPage=NewsaddPage;//新增新闻页面
-  NewscontentPage: any = 'NewscontentPage';
-
+  newsadd = NewsaddPage;
+  newsDetail = 'NewscontentPage';
+  newsearch = 'NewssearchPage';
+  pageList = [];
+  totalNum = 0;
+  pageNum = 0;
+  pageSize = 10;
+  isSearching = false;
+  tempinfinite: any = null;
   constructor(public appService: AppserviceProvider, public navCtrl: NavController, public navParams: NavParams) {
-    this.getList('');
+    this.getList(null, null, true);
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad NewsPage');
-  }
-  getList(Infinite){
-    const numlist=AppGlobal.API.getActivityNum;
-    this.appService.httpGet(numlist,{TypeId:1},"","",(data)=>{
-      this.pageNum=data[0][0]["num"];
-    },false);
-    const listurl=AppGlobal.API.getActivityList;
-    this.appService.httpGet(listurl,{PageNum:this.page,PageSize:4,TypeId:1},"请求成功","请求失败",(data)=>{
-     
-      if (data[0].length == 0 || data[0].length < this.pagesize) {
-        Infinite.enable(false);
-        
+  getList(Refresh, infiniteScroll, flag) {
+    if (this.tempinfinite == null && infiniteScroll != null) {
+      this.tempinfinite = infiniteScroll;
+    }
+    const numlist = AppGlobal.API.getActivityNum;
+    this.appService.httpGet(numlist, { TypeId: 1 }, "", "", (data) => {
+      this.totalNum = data[0][0]["num"];
+    }, false);
+
+    const listurl = AppGlobal.API.getNews;
+    this.appService.httpGet(listurl, { PageNum: this.pageNum, PageSize: this.pageSize, TypeId: 1 }, "", "", (data) => {
+      this.pageNum += 1;
+      if (data[0].length < 10) {
+        if (this.tempinfinite != null) {
+          this.tempinfinite.enable(false);
+        } else {
+          infiniteScroll.enable(false);
+        }
       } else {
-
-        this.page++;
-
-        this.list = this.list.concat(data[0]);
+        if (this.tempinfinite != null) {
+          this.tempinfinite.enable(true);
+        }
       }
-      console.log("data:"+data[0]);
-      console.log("list:"+this.list);
-      // this.list=this.list.unshift(data[0]) ;
-   
-    },true);
+      if (flag) {
+        this.pageList = data[0];
+      } else {
+        this.pageList = this.pageList.concat(data[0]);
+      }
+    }, false);
   }
 
-  doRefresh(refresher) {
-    
-    setTimeout(() => {
-      this.getList(refresher);
-      refresher.complete();
-    }, 2000);
+  addNews() {
+    this.navCtrl.push(this.newsadd, {
+      callback: this.callBackSubForm
+    })
   }
-  presentConfirm(keyValue) {
-    console.log(keyValue);
-    this.appService.alert("确定删除这条新闻吗?", () => {
-      /*调用删除接口*/
-      const url = AppGlobal.API["newsRemoveform"];
-      const userObj = this.appService.httpPost(url, { NewsId: keyValue },
-        "删除成功", "删除失败", (data) => {
-          this.list = [];
-          this.page=0;
-          this.getList('');
-          console.log(data);
-        }, true);
+
+  // 用于pop 回调的 block
+  callBackSubForm = (params) => {
+    return new Promise((resolve, reject) => {
+      if (params) {
+        if (params == "保存1") {
+          this.appService.loading("保存成功");
+          //this.pageList = [];
+          this.pageNum = 0;
+          this.getList(null, null, true);
+        }
+        if (params == "删除1") {
+          this.appService.loading("删除成功");
+          //this.pageList = [];
+          this.pageNum = 0;
+          this.getList(null, null, true);
+        }
+        //resolve('成功取到B页面返回的参数');
+        //console.log('B页面参数为: ' + params);
+
+      } else {
+        //reject('取回B页面数据失败');
+      }
     });
   }
 
-  getinfo() {
-     console.log("进来了点击的方法");
-    this.navCtrl.push(NewsaddPage);
+  showDetail(newsid) {
+    this.navCtrl.push(this.newsDetail, {
+      callback: this.callBackSubForm,
+      NewsId: newsid
+    })
   }
-  openSearch(){
 
+  doRefresh(refresher) {
+    this.pageNum = 0;
+    this.getList(null, null, true);
+    setTimeout(() => {
+      refresher.complete();
+    }, 2000);
+  }
+
+  doInfinite(infiniteScroll) {
+    this.getList(null, infiniteScroll, false);
+    setTimeout(() => {
+      infiniteScroll.complete();
+
+    }, 2000);
+  }
+
+  doDelete(newsid) {
+    this.appService.httpPost(AppGlobal.API.deleteActivityForm, { NewsId: newsid }, "删除成功", "删除失败", (data) => {
+      if (data == "1") {
+        this.pageNum = 0;
+        this.getList(null, null, true);
+      }
+    }, true);
   }
 }

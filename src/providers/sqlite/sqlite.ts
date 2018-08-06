@@ -5,10 +5,15 @@ import {SQLite, SQLiteObject} from "@ionic-native/sqlite";
 @Injectable()
 export class SqliteProvider {
    myAppDatabase: SQLiteObject;
+   public insertresult:any;
+   public selectresult:any;
+   public updateresult:any;
+   public deleteresult:any;
   constructor(public http: HttpClient,private sqlite: SQLite) {
     debugger;
     this.initDatabase();
   }
+
   initDatabase() {
     // this.sqlite.create({
     //   name: 'myApp.db',
@@ -34,23 +39,19 @@ export class SqliteProvider {
       .catch(e => console.log(e));
   }
   AddLogTable(LogEntity) {
-    debugger;
-    var nn= this.myAppDatabase.executeSql('INSERT INTO Log VALUES (LogID,ProContract, LogDate, BeginTime, EndTime, WorkSummary, ProContractID, Remark);', [LogEntity.LogID,LogEntity.ProContract, LogEntity.LogDate, LogEntity.BeginTime, LogEntity.EndTime, LogEntity.WorkSummary, LogEntity.ProContractID, LogEntity.Remark]).then(() => console.log('添加成功')).catch(e => console.log(e));
+    this.insertresult= this.myAppDatabase.executeSql('INSERT INTO Log VALUES (LogID,ProContract, LogDate, BeginTime, EndTime, WorkSummary, ProContractID, Remark);', [LogEntity.LogID,LogEntity.ProContract, LogEntity.LogDate, LogEntity.BeginTime, LogEntity.EndTime, LogEntity.WorkSummary, LogEntity.ProContractID, LogEntity.Remark]).then(() => console.log('添加成功')).catch(e => console.log(e));
   }
 
   GetLogTable() {
-    debugger;
-    var nn= this.myAppDatabase.executeSql('SELECT * FROM Log;').then(() => console.log('查询成功')).catch(e => console.log(e));
+    this.selectresult= this.myAppDatabase.executeSql('SELECT * FROM Log;').then(() => console.log('查询成功')).catch(e => console.log(e));
   }
 
   UpdateLogTable(LogEntity) {
-    debugger;
-    var nn= this.myAppDatabase.executeSql('UPDATE Log SET ProContract=?, LogDate=?, BeginTime=?, EndTime=?, WorkSummary=?, ProContractID=?, Remark=? WHERE LogID=?;', [LogEntity.ProContract, LogEntity.LogDate, LogEntity.BeginTime, LogEntity.EndTime, LogEntity.WorkSummary, LogEntity.ProContractID, LogEntity.Remark,LogEntity.LogID]).then(() => console.log('修改成功')).catch(e => console.log(e));
+    this.updateresult= this.myAppDatabase.executeSql('UPDATE Log SET ProContract=?, LogDate=?, BeginTime=?, EndTime=?, WorkSummary=?, ProContractID=?, Remark=? WHERE LogID=?;', [LogEntity.ProContract, LogEntity.LogDate, LogEntity.BeginTime, LogEntity.EndTime, LogEntity.WorkSummary, LogEntity.ProContractID, LogEntity.Remark,LogEntity.LogID]).then(() => console.log('修改成功')).catch(e => console.log(e));
   }
   DelLogTable(logid)
   {
-    debugger;
-    var nn= this.myAppDatabase.executeSql("delete from log where LogID=?",[logid]).then(() => console.log('删除成功')).catch(e => console.log(e));
+    this.deleteresult= this.myAppDatabase.executeSql("delete from log where LogID=?",[logid]).then(() => console.log('删除成功')).catch(e => console.log(e));
   }
  
 

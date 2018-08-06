@@ -29,4 +29,24 @@
         // border-radius:5px;
         // border: 1px dotted #EEE;
     }
+    .ys-selecttitle{
+        line-height:60px;
+        height:45px;
+        padding:0px 0px 0px 10px; 
+    }
+    .ys-selectvalue{
+        height:45px;
+        padding:0px 0px 0px 10px; 
+     
+        background-color:rgb(255, 255, 255);
+        .ion-select{
+            max-width: 100%; 
+        }
+    }
+
+    .ys-textareavalue{
+        height:65px;
+        padding-left:10px;
+        background-color:rgb(255, 255, 255);
+    }
    

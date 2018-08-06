@@ -9,30 +9,35 @@
             
           </div>
         </ion-toolbar>
-    <ion-list no-lines>
-      <ion-item-sliding class="ys-list" *ngFor="let item of newslist">
-        <ion-item class="ys-list-title">
-          <ion-grid style="margin:0px;padding:0px;">
-            <ion-row>
-              <ion-col col-8 style="font-weight:bold;">
-                <font color="{{item.FullHeadColor}}">{{item.FullHead}}</font>
-              </ion-col>
-              <ion-col col-4 style="text-align:right;">
-                {{item.CreateDate|date:'yyyy-MM-dd'}}
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col col-4>
-                {{item.AuthorName}}
-              </ion-col>
-              <ion-col col-8 style="text-align:right;">
-                {{item.SourceName}}
-                </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item>
-      
-      </ion-item-sliding>
-    </ion-list>
+        <ion-list no-lines>
+          <ion-item-sliding class="ys-list" *ngFor="let item of newslist">
+            <ion-item class="ys-list-title" >
+              <ion-grid style="margin:0px;padding:0px;">
+                <ion-row>
+                  <ion-col col-8 style="font-weight:bold;">
+                    <font color="{{item.FullHeadColor}}">{{item.FullHead}}</font>
+                  </ion-col>
+                  <ion-col col-4 style="text-align:right;">
+                     {{item.CreateDate|date:'yyyy-MM-dd'}}
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col col-4>
+                    {{item.AuthorName}}
+                  </ion-col>
+                  <ion-col col-8 style="text-align:right;">
+                    {{item.SourceName}}
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-item>
+            <ion-item-options class="ys-list-options" side="right">
+              <button ion-button color="light" (click)="doDelete(item.NewsId)">
+                <ion-icon name="trash-outline" class="op-del"></ion-icon>
+              </button>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
   </div>
+
 </ion-content>

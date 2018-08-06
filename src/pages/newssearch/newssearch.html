@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-buttons left>
+        <!-- (ionInput)="onInput($event)" (ionCancel)="onCancel($event)" -->
+      <ion-searchbar [(ngModel)]="myInput" [showCancelButton]="shouldShowCancel" >
+      </ion-searchbar>
+    </ion-buttons>
+    <!-- 兼容增加返回按钮后，标题不居中 -->
+    <ion-buttons right>
+      <button ion-button (click)="Search()" style="font-size:18px;width:60px;">
+        搜索
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <ion-toolbar style="min-height:45px;padding-left:10px;">
+    <div class="down-select">
+      <span>搜索结果</span>
+      <span class="num">{{totalNum}}条</span>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content isScrolling class="ys-content">
+  <ion-list no-lines>
+    <ion-item-sliding class="ys-list" *ngFor="let item of pageList">
+      <ion-item class="ys-list-title" (click)="showDetail(item.NewsId)">
+        <ion-grid style="margin:0px;padding:0px;">
+          <ion-row>
+            <ion-col col-8 style="font-weight:bold;">
+              <font color="{{item.FullHeadColor}}">{{item.FullHead}}</font>
+            </ion-col>
+            <ion-col col-4 style="text-align:right;">
+              {{item.CreateDate|date:'yyyy-MM-dd'}}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-4>
+              {{item.AuthorName}}
+            </ion-col>
+            <ion-col col-8 style="text-align:right;">
+              {{item.SourceName}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ion-item-options class="ys-list-options" side="right">
+        <button ion-button color="light" (click)="doDelete(item.NewsId)">
+          <ion-icon name="trash-outline" class="op-del"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" threshold="100px">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多数据...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

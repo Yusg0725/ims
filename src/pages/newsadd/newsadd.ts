@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+// import {FormsModule} from '@angular/forms';
+import {  NavController, NavParams } from 'ionic-angular';
 import { AppserviceProvider, AppGlobal } from '../../providers/appservice/appservice';
-import {NewsPage} from '../news/news';
+// import {NewsPage} from '../news/news';
 
 
 // import { NewsPageModule } from '../news/news.module';
@@ -13,70 +13,54 @@ import {NewsPage} from '../news/news';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+//@IonicPage()
 @Component({
   selector: 'page-newsadd',
   templateUrl: 'newsadd.html',
 })
 export class NewsaddPage {
-  public editorContent="测试内容";
-  public keyValue='';
-  public title='';
-  entity: any = {
-    TypeId: 3,
+   entity: any = {
+    TypeId: 1,
     FullHead: "",
     FullHeadColor: "",
     AuthorName: "",
     SourceName: "",
     NewsContent: "",
+    CreateDate:"",
     CreateUserId: "",
     CreateUserName: "",
-  } 
-  constructor(public appService: AppserviceProvider,public navCtrl: NavController, public navParams: NavParams) {
-    var NewsId=navParams.data["id"];
-
-    var url= AppGlobal.API["newsInfo"];
-    if(NewsId!=null)
-    {
- const userObj = this.appService.httpGet(url, {NewsId:NewsId},
-    "获取成功", "获取失败", (data)=> {
-      if(data[0].length>0)
-      {
-       this.title=data[0][0].FullHead;
-       this.editorContent= data[0][0].NewsContent;
-     
- 
-      }
- 
-    }, true);
-
-    }
-   
+    ModifyDate:"",
+    ModifyUserId:"",
+    ModifyUserName:"",
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad NewsaddPage');
-  }
-  addsave()
-  {
-    if (this.entity.FullHead.length == 0) {
-      this.appService.toast("请输入标题!");
+  callback: any;
+  constructor(public appservice: AppserviceProvider, public navCtrl: NavController, public navParams: NavParams) {
+    //获取父页面传过来的回调方法
+    this.callback = this.navParams.get("callback");
     
-      return false;
-    } else if (this.entity.NewsContent.length == 0) {
-      this.appService.toast("请输入内容!");
-      return false;
+    if(typeof(this.navParams.get("entity"))!="undefined"){
+      this.entity=this.navParams.get("entity");
     }
-   /*调用保存编辑接口*/
 
-   const url = AppGlobal.API["newsSaveform"];
-   console.log(this.entity);
-   var NewsContent=encodeURI(this.editorContent);
-    const userObj = this.appService.httpPost(url, this.entity,
-    "保存成功，正在跳转", "保存失败", (data)=> {
-      console.log("保存成功："+data);
-      this.navCtrl.push(NewsPage);
-    }, true);
+    this.appservice.getItem(AppGlobal.cache.userObj, (data) => {
+      this.entity.CreateUserId = data[0].UserId;
+      this.entity.CreateUserName = data[0].RealName;
+      if(this.entity!=null){
+        this.entity.ModifyUserId = data[0].UserId;
+        this.entity.ModifyUserName = data[0].RealName;
+      }
+    })
   }
-  
+
+
+
+  saveForm() {
+    this.appservice.httpPost(AppGlobal.API.newsSaveform, this.entity, "", "", (res) => {
+      let param = "保存" + res;
+      this.callback(param).then(() => {
+      });
+      // pop返回方法
+      this.navCtrl.pop();
+    }, false);
+  }
 }

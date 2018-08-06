@@ -1,8 +1,8 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, Content, NavController, NavParams } from 'ionic-angular';
 import { Contacts, ContactFieldType, ContactFindOptions } from '@ionic-native/contacts';
-import VConsole from 'vconsole';
-var vConsole = new VConsole();
+// import VConsole from 'vconsole';
+// var vConsole = new VConsole();
 // Contact, ContactField, ContactName, 
 @IonicPage()
 @Component({

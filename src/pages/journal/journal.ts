@@ -7,36 +7,48 @@ import { AppserviceProvider, AppGlobal } from '../../providers/appservice/appser
   templateUrl: 'journal.html',
 })
 export class JournalPage {
-  public list = [];
-  public page=0;
-  public pagesize = 4;
-  public pageNum=0;
-  pagination: any;
-  public result=false;
-public JournaladdPage ='JournaladdPage';
+
+  journaladd = 'JournaladdPage';
+  journalcontent = 'JournalcontentPage';
+  journalsearch = 'JournalsearchPage';
+  pageList = [];
+  totalNum = 0;
+  pageNum = 0;
+  pageSize = 10;
+  isSearching = false;
+  tempinfinite: any = null;
+
    constructor(public appService: AppserviceProvider, public navCtrl: NavController, public navParams: NavParams) {
-    this.getList('');
+    this.getList(null, null, true);
+  
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad NewsPage');
   }
-  getList(Infinite){
-    //获取数据条数
-    const numlist=AppGlobal.API.getDiaryCount;
-    this.appService.httpGet(numlist,{},"","",(data)=>{
-      this.pageNum=data[0][0]["num"];
-    },false);
-    //获取数据列表
-    const listurl=AppGlobal.API.getDiaryList;
-    this.appService.httpGet(listurl,{PageNum:this.page,PageSize:4},"请求成功","请求失败",(data)=>{
-     
-      if (data[0].length == 0 || data[0].length < this.pagesize)  {
-        this.result=false;
-     
+
+  getList(Refresh, infiniteScroll, flag) {
+    if (this.tempinfinite == null && infiniteScroll != null) {
+      this.tempinfinite = infiniteScroll;
+    }
+    const numlist = AppGlobal.API.getDiaryCount;
+    this.appService.httpGet(numlist, {}, "", "", (data) => {
+      this.totalNum = data[0][0]["num"];
+    }, false);
+
+    const listurl = AppGlobal.API.getDiaryList;
+    this.appService.httpGet(listurl, { PageNum: this.pageNum, PageSize: this.pageSize }, "", "", (data) => {
+      this.pageNum += 1;
+      if (data[0].length < 10) {
+        if (this.tempinfinite != null) {
+          this.tempinfinite.enable(false);
+        } else if(infiniteScroll!=null){
+          infiniteScroll.enable(false);
+        }
       } else {
-        this.result=true;
-        this.page++;
+        if (this.tempinfinite != null) {
+          this.tempinfinite.enable(true);
+        }
       }
       for(var i=0;i<data[0].length;i++)
       {
@@ -47,41 +59,73 @@ public JournaladdPage ='JournaladdPage';
           data[0][i].WorkSummary=data[0][i].WorkSummary.substring(0,14)+"...";
         }
       }
-      this.list = this.list.concat(data[0]);
-      console.log("data:"+data[0]);
-      console.log("list:"+this.list);
-      // this.list=this.list.unshift(data[0]) ;
-   
-    },true);
+      if (flag) {
+        this.pageList = data[0];
+      } else {
+        this.pageList = this.pageList.concat(data[0]);
+      }
+    }, false);
   }
 
   doRefresh(refresher) {
-    
+    this.pageNum = 0;
+    this.getList(null, null, true);
     setTimeout(() => {
-      this.getList(refresher);
       refresher.complete();
     }, 2000);
   }
-  presentConfirm(keyValue) {
-    console.log(keyValue);
-    this.appService.alert("确定删除这条日志吗?", () => {
-      /*调用删除接口*/
-      const url = AppGlobal.API["setDiaryDeleteform"];
-      const userObj = this.appService.httpPost(url, { LogID: keyValue },
-        "", "", (data) => {
-          this.list = [];
-          this.page=0;
-          this.getList('');
-          console.log(data);
-        }, true);
+
+  doInfinite(infiniteScroll) {
+    this.getList(null, infiniteScroll, false);
+    setTimeout(() => {
+      infiniteScroll.complete();
+
+    }, 2000);
+  }
+
+  addJournal() {
+    this.navCtrl.push(this.journaladd, {
+      callback: this.callBackSubForm
+    })
+  }
+  // 用于pop 回调的 block
+  callBackSubForm = (params) => {
+    return new Promise((resolve, reject) => {
+      if (params) {
+        if (params == "保存1") {
+          this.appService.loading("保存成功");
+          //this.pageList = [];
+          this.pageNum = 0;
+          this.getList(null, null, true);
+        }
+        if (params == "删除1") {
+          this.appService.loading("删除成功");
+          //this.pageList = [];
+          this.pageNum = 0;
+          this.getList(null, null, true);
+        }
+        //resolve('成功取到B页面返回的参数');
+        //console.log('B页面参数为: ' + params);
+
+      } else {
+        //reject('取回B页面数据失败');
+      }
     });
   }
 
-  // getinfo() {
-  //   console.log("进来了添加方法");
-  //   this.navCtrl.push(this.JournaladdPage);
-  // }
-  openSearch(){
-
+  showDetail(LogID) {
+    this.navCtrl.push(this.journalcontent, {
+      callback: this.callBackSubForm,
+      LogID: LogID
+    })
   }
+  doDelete(LogID) {
+    this.appService.httpPost(AppGlobal.API.setDiaryDeleteform, { LogID: LogID }, "删除成功", "删除失败", (data) => {
+      if (data == "1") {
+        this.pageNum = 0;
+        this.getList(null, null, true);
+      }
+    }, true);
+  }
+ 
 }

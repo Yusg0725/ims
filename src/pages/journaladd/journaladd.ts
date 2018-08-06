@@ -1,9 +1,9 @@
-import { Component,ViewChild,ElementRef } from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import { IonicPage, NavController, NavParams, DateTime, Content } from 'ionic-angular';
+import { Component } from '@angular/core';
+// import {FormsModule} from '@angular/forms';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AppserviceProvider, AppGlobal } from '../../providers/appservice/appservice';
-import { getHostElement } from '@angular/core/src/render3';
-import {SqliteProvider} from "../../providers/sqlite/sqlite";
+// import { getHostElement } from '@angular/core/src/render3';
+// import {SqliteProvider} from "../../providers/sqlite/sqlite";
 @IonicPage()
 @Component({
   selector: 'page-journaladd',
@@ -23,24 +23,23 @@ export class JournaladdPage {
     Remark:""//备注
  
   } 
-  constructor(public appService: AppserviceProvider,public navCtrl: NavController, public navParams: NavParams,public sqlite:SqliteProvider) {
+  callback: any;
+  constructor(public appService: AppserviceProvider,public navCtrl: NavController, public navParams: NavParams) {
+    //获取父页面传过来的回调方法
+    this.callback = this.navParams.get("callback");
+    
+    if(typeof(this.navParams.get("entity"))!="undefined"){
+      this.entity=this.navParams.get("entity");
+    }
 
-    // var NewsId=navParams.data["id"];
-
-    // var url= AppGlobal.API["newsInfo"];
-//     if(NewsId!=null)
-//     {
-//  const userObj = this.appService.httpGet(url, {NewsId:NewsId},
-//     "获取成功", "获取失败", (data)=> {
-//       if(data[0].length>0)
-//       {
-//        this.entity=data[0][0];
-     
-//       }
- 
-//     }, true);
-
-//     }
+    this.appService.getItem(AppGlobal.cache.userObj, (data) => {
+      this.entity.CreateUserId = data[0].UserId;
+      this.entity.CreateUserName = data[0].RealName;
+      if(this.entity!=null){
+        this.entity.ModifyUserId = data[0].UserId;
+        this.entity.ModifyUserName = data[0].RealName;
+      }
+    })
    
 
   }
@@ -69,16 +68,16 @@ export class JournaladdPage {
     }
     console.log(this.entity);
    /*调用保存编辑接口*/
-  //  const url = AppGlobal.API["setDiarySaveform"];
-  //   const userObj = this.appService.httpPost(url, this.entity,
-  //   "", "", (data)=> {
-  //     debugger;
-  //     console.log("保存成功："+data);
-  //     this.navCtrl.push('JournalPage');
-  //   }, true);
+    this.appService.httpPost(AppGlobal.API.setDiarySaveform, this.entity, "", "", (res) => {
+      let param = "保存" + res;
+      this.callback(param).then(() => {
+      });
+      // pop返回方法
+     // this.navCtrl.pop();
+    }, false);
   //调用SQLite保存接口
-   this.entity.LogID=this.guid();
-   this.sqlite.AddLogTable(this.entity);
+  //  this.entity.LogID=this.guid();
+  //  this.sqlite.AddLogTable(this.entity);
 
   }
    guid() {

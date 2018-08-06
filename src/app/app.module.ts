@@ -11,22 +11,28 @@ import { HttpClientModule} from '@angular/common/http';
 import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
-// import { CallNumber } from '@ionic-native/call-number';
-// import { Contacts } from '@ionic-native/contacts';
+import { CallNumber } from '@ionic-native/call-number';
+import { Contacts } from '@ionic-native/contacts';
 import { Base64 } from '@ionic-native/base64';
-import {QuillModule}from 'ngx-quill';
+
+
 import {SQLite} from "@ionic-native/sqlite";
+import { PipesModule } from '../pipes/pipes.module';
+import { ZBar } from '@ionic-native/zbar';
+import { QuillModule } from 'ngx-quill';
+
 
 import { MyPage } from '../pages/my/my';
 import { SettingPage } from '../pages/setting/setting';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage} from '../pages/login/login';
-import { WelcomePage} from '../pages/welcome/welcome';
-import { UserinfoPage} from '../pages/userinfo/userinfo';
 import { NewsaddPage} from '../pages/newsadd/newsadd';
+import { SetActivityAddPage } from '../pages/set-activity-add/set-activity-add';
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+
 
 import { AppserviceProvider,AppGlobal } from '../providers/appservice/appservice';
 import { SqliteProvider } from '../providers/sqlite/sqlite';
@@ -40,9 +46,8 @@ import { SqliteProvider } from '../providers/sqlite/sqlite';
     HomePage,
     TabsPage,
     LoginPage,
-    WelcomePage,
-    UserinfoPage,
     NewsaddPage,
+    SetActivityAddPage,
   ],
   imports: [
     BrowserModule,
@@ -53,6 +58,7 @@ import { SqliteProvider } from '../providers/sqlite/sqlite';
     FormsModule,
     HttpClientModule,
     QuillModule,
+    PipesModule,
     IonicModule.forRoot(MyApp,{
       backButtonText:'',
       backButtonIcon:'ios-arrow-back',
@@ -73,9 +79,8 @@ import { SqliteProvider } from '../providers/sqlite/sqlite';
     HomePage,
     TabsPage,
     LoginPage,
-    WelcomePage,
-    UserinfoPage,
     NewsaddPage,
+    SetActivityAddPage,
   ],
   providers: [
     StatusBar,
@@ -86,11 +91,13 @@ import { SqliteProvider } from '../providers/sqlite/sqlite';
     Camera,
     File,
     SQLite,
-    // CallNumber,
-    // Contacts,
+    SqliteProvider,
+    CallNumber,
+    Contacts,
     FileTransfer,
     Base64,
-    SqliteProvider
-]
+    ZBar
+  ]
+
 })
 export class AppModule {}

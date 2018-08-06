@@ -2,7 +2,7 @@
   <ion-navbar color="primary">
     <ion-title>活动</ion-title>
     <ion-buttons right>
-      <button ion-button navPop (click)="saveForm()" style="font-size:24px;width:60px;">
+      <button ion-button (click)="saveForm()" style="font-size:24px;width:60px;">
         <ion-icon name="checkmark-outline"></ion-icon>
       </button>
     </ion-buttons>
@@ -30,42 +30,42 @@
     </ion-row>
     <ion-row>
       <ion-col class="ys-value">
-        <ion-range (ionChange)="changecolorTitle()" min="0" max="17" step="1" snaps="true"  [(ngModel)]="colorValue"></ion-range>
+        <ion-range (ionChange)="changecolorTitle()" min="0" max="17" step="1" snaps="true" [(ngModel)]="colorValue"></ion-range>
       </ion-col>
     </ion-row>
     <ion-row>
-        <ion-col class="ys-title">
-          作者
-          <font color="red">*</font>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col class="ys-value">
-          <input id="fullhead" type="text" [(ngModel)]="entity.AuthorName">
-        </ion-col>
-      </ion-row>
-      <ion-row>
-          <ion-col class="ys-title">
-            来源
-            <font color="red">*</font>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col class="ys-value">
-            <input id="fullhead" type="text" [(ngModel)]="entity.SourceName">
-          </ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col class="ys-title">
-              内容
-              <font color="red">*</font>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col class="ys-value">
-              <quill-editor [(ngModel)]="entity.NewsContent"></quill-editor>
-            </ion-col>
-          </ion-row>
+      <ion-col class="ys-title">
+        作者
+        <font color="red">*</font>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ys-value">
+        <input id="fullhead" type="text" [(ngModel)]="entity.AuthorName">
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ys-title">
+        来源
+        <font color="red">*</font>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ys-value">
+        <input id="fullhead" type="text" [(ngModel)]="entity.SourceName">
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ys-title">
+        内容
+        <font color="red">*</font>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ys-value" style="height:100%;">
+        <quill-editor [(ngModel)]="entity.NewsContent" style="height:200px;" placeholder="请输入活动发布内容，\n">
+        </quill-editor>
+      </ion-col>
+    </ion-row>
   </ion-grid>
-
 </ion-content>
