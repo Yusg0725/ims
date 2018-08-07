@@ -11,7 +11,7 @@ export class MyPage {
       icon: 'paper-outline',
       name: '日志',
       color: 'bgcolor_d',
-      url: '1'
+      url: 'JournalPage'
     },
     {
       icon: 'hand-outline',

@@ -4,7 +4,7 @@
       个人信息
     </ion-title>
     <ion-buttons right>
-        <button ion-button clear style="width:70px;">
+      <button ion-button clear style="width:70px;">
       </button>
     </ion-buttons>
 
@@ -15,25 +15,28 @@
   <ion-list class="top-list">
     <button ion-item>
       <ion-avatar item-right>
-        <img src="{{userObj.Head}}">
+        <img src="{{userObj.HeadIcon}}">
       </ion-avatar>
       头像
     </button>
     <ion-item>
-      账号
+      账号：{{userObj.Account}}
     </ion-item>
     <ion-item>
-      姓名
+      姓名：{{userObj.RealName}}
     </ion-item>
     <ion-item>
-      年龄
-    </ion-item>
-    <ion-item>
-      部门
+      Q  Q：{{userObj.OICQ}}
     </ion-item>
     <button ion-item>
-      职位
+      微信：{{userObj.WeChat}}
     </button>
+    <ion-item>
+      邮箱：{{userObj.Email}}
+    </ion-item>
+    <ion-item>
+      手机：{{userObj.Mobile}}
+    </ion-item>
   </ion-list>
 
   <div style="text-align: center; margin-left: 30px; margin-right: 30px;margin-top: 30px;">

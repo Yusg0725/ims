@@ -1,60 +1,62 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams} from 'ionic-angular';
 import { AppserviceProvider, AppGlobal } from '../../providers/appservice/appservice';
-
-import { NewsaddPage } from '../newsadd/newsadd';
-
 @IonicPage()
 @Component({
-  selector: 'page-news',
-  templateUrl: 'news.html',
+  selector: 'page-journal',
+  templateUrl: 'journal.html',
 })
-export class NewsPage {
+export class JournalPage {
 
-  public list = [];
-  public count = 0;
-  public page = 0;
-  public pagesize = 9;
-  public result = false;
-
-  pagination: any;
-  NewsaddPage:any=NewsaddPage;
-  NewscontentPage: any = 'NewscontentPage';
-
-  newsadd = NewsaddPage;
-  newsDetail = 'NewscontentPage';
-  newsearch = 'NewssearchPage';
+  journaladd = 'JournaladdPage';
+  journalcontent = 'JournalcontentPage';
+  journalsearch = 'JournalsearchPage';
   pageList = [];
   totalNum = 0;
   pageNum = 0;
   pageSize = 10;
   isSearching = false;
   tempinfinite: any = null;
-  constructor(public appService: AppserviceProvider, public navCtrl: NavController, public navParams: NavParams) {
+
+   constructor(public appService: AppserviceProvider, public navCtrl: NavController, public navParams: NavParams) {
     this.getList(null, null, true);
+  
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad NewsPage');
   }
 
   getList(Refresh, infiniteScroll, flag) {
     if (this.tempinfinite == null && infiniteScroll != null) {
       this.tempinfinite = infiniteScroll;
     }
-    const numlist = AppGlobal.API.getActivityNum;
-    this.appService.httpGet(numlist, { TypeId: 1 }, "", "", (data) => {
+    const numlist = AppGlobal.API.getDiaryCount;
+    this.appService.httpGet(numlist, {}, "", "", (data) => {
       this.totalNum = data[0][0]["num"];
     }, false);
 
-    const listurl = AppGlobal.API.getNews;
-    this.appService.httpGet(listurl, { PageNum: this.pageNum, PageSize: this.pageSize, TypeId: 1 }, "", "", (data) => {
+    const listurl = AppGlobal.API.getDiaryList;
+    this.appService.httpGet(listurl, { PageNum: this.pageNum, PageSize: this.pageSize }, "", "", (data) => {
       this.pageNum += 1;
       if (data[0].length < 10) {
         if (this.tempinfinite != null) {
           this.tempinfinite.enable(false);
-        } else {
+        } else if(infiniteScroll!=null){
           infiniteScroll.enable(false);
         }
       } else {
         if (this.tempinfinite != null) {
           this.tempinfinite.enable(true);
+        }
+      }
+      for(var i=0;i<data[0].length;i++)
+      {
+        data[0][i].BeginTime=data[0][i].BeginTime.substring(11,16);
+        data[0][i].EndTime=data[0][i].EndTime.substring(11,16);
+        if(data[0][i].WorkSummary.length>14)
+        {
+          data[0][i].WorkSummary=data[0][i].WorkSummary.substring(0,14)+"...";
         }
       }
       if (flag) {
@@ -65,12 +67,27 @@ export class NewsPage {
     }, false);
   }
 
-  addNews() {
-    this.navCtrl.push(this.newsadd, {
+  doRefresh(refresher) {
+    this.pageNum = 0;
+    this.getList(null, null, true);
+    setTimeout(() => {
+      refresher.complete();
+    }, 2000);
+  }
+
+  doInfinite(infiniteScroll) {
+    this.getList(null, infiniteScroll, false);
+    setTimeout(() => {
+      infiniteScroll.complete();
+
+    }, 2000);
+  }
+
+  addJournal() {
+    this.navCtrl.push(this.journaladd, {
       callback: this.callBackSubForm
     })
   }
-
   // 用于pop 回调的 block
   callBackSubForm = (params) => {
     return new Promise((resolve, reject) => {
@@ -96,35 +113,19 @@ export class NewsPage {
     });
   }
 
-  showDetail(newsid) {
-    this.navCtrl.push(this.newsDetail, {
+  showDetail(LogID) {
+    this.navCtrl.push(this.journalcontent, {
       callback: this.callBackSubForm,
-      NewsId: newsid
+      LogID: LogID
     })
   }
-
-  doRefresh(refresher) {
-    this.pageNum = 0;
-    this.getList(null, null, true);
-    setTimeout(() => {
-      refresher.complete();
-    }, 2000);
-  }
-
-  doInfinite(infiniteScroll) {
-    this.getList(null, infiniteScroll, false);
-    setTimeout(() => {
-      infiniteScroll.complete();
-
-    }, 2000);
-  }
-
-  doDelete(newsid) {
-    this.appService.httpPost(AppGlobal.API.deleteActivityForm, { NewsId: newsid }, "删除成功", "删除失败", (data) => {
+  doDelete(LogID) {
+    this.appService.httpPost(AppGlobal.API.setDiaryDeleteform, { LogID: LogID }, "删除成功", "删除失败", (data) => {
       if (data == "1") {
         this.pageNum = 0;
         this.getList(null, null, true);
       }
     }, true);
   }
+ 
 }

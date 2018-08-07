@@ -18,15 +18,22 @@ export class AppGlobal {
         getSlide: "/api/Home/GetSlides",
         upload: "/api/File/Upload",
         download: "/api/File/Download",
-        getActivityNum: "/api/news/getcount",
-        getActivityList: "/api/news/getlist",
-        getActivityDetail: "/api/news/getdetail",
-        saveActivityForm: "/api/news/saveform",
-        deleteActivityForm: "/api/news/deleteform",
+      
         getNews:"/api/news/getlist",
         newsSaveform:"/api/news/saveform",
         newsRemoveform:"/api/news/deleteform",
-        newsInfo:"/api/news/getdetail"
+
+        newsInfo:"/api/news/getdetail",
+        getActivityNum:"/api/news/getcount",
+        getActivityList:"/api/news/getlist",
+        saveActivityForm:"/api/news/saveform",
+        deleteActivityForm:"/api/news/deleteform",
+        getDiaryCount:"/api/diary/getcount",
+        getDiaryList:"/api/diary/getlist",
+        getDiaryDetail:"/api/diary/getdetail",
+        setDiarySaveform:"/api/diary/saveform",
+        setDiaryDeleteform:"/api/diary/deleteform"
+
     };
 } 
 @Injectable()

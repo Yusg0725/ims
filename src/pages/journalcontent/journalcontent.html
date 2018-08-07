@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>新闻详情</ion-title>
+    <ion-title>日志</ion-title>
     <ion-buttons right>
       <button ion-button (click)="editForm()" style="font-size:24px;width:30px;">
         <ion-icon name="create-outline"></ion-icon>
@@ -17,27 +17,32 @@
   <ion-grid style="margin:0px;padding:0px;">
       <ion-row>
           <ion-col class="ys-value" style="height:30px;line-height:25px;">
-            创建于 {{entity.CreateDate|date:'yyyy-MM-dd HH:mm:ss'}}
+            <!-- 创建于 {{entity.CreateDate|date:'yyyy-MM-dd HH:mm:ss'}} -->
           </ion-col>
         </ion-row>
     <ion-row>
       <ion-col class="ys-value">
-        标题：{{entity.FullHead}}
+        项目名称：{{entity.ProContract}}
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col class="ys-value">
-        作者：{{entity.AuthorName}}
+        日志日期：{{entity.LogDate}}
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col class="ys-value">
-        来源：{{entity.SourceName}}
+        日志时间:{{entity.BeginTime}}----{{entity.EndTime}}
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col class="ys-value" style="height:100%;">
-        内容：<div [innerHTML]="entity.NewsContent"></div>
+        工作内容：<div [innerHTML]="entity.WorkSummary"></div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ys-value" style="height:100%;">
+        备注<div [innerHTML]="entity.Remark"></div>
       </ion-col>
     </ion-row>
   </ion-grid>

@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AppserviceProvider, AppGlobal } from '../../providers/appservice/appservice';
-import { NewsaddPage} from '../newsadd/newsadd';
 
 /**
- * Generated class for the NewscontentPage page.
+ * Generated class for the JournalcontentPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -12,13 +11,14 @@ import { NewsaddPage} from '../newsadd/newsadd';
 
 @IonicPage()
 @Component({
-  selector: 'page-newscontent',
-  templateUrl: 'newscontent.html',
+  selector: 'page-journalcontent',
+  templateUrl: 'journalcontent.html',
 })
-export class NewscontentPage {
+export class JournalcontentPage {
   entity={};
-  NewsId:any;
+  LogID:any;
   callback:any;
+  addJournal="JournaladdPage";
   constructor(public appService:AppserviceProvider,public navCtrl: NavController, public navParams: NavParams) {
     //获取父页面传过来的回调方法
     this.callback = this.navParams.get("callback");
@@ -27,14 +27,17 @@ export class NewscontentPage {
   }
 
   getInfo(){
-    this.NewsId=this.navParams.get("NewsId");
-    this.appService.httpGet(AppGlobal.API.newsInfo, {NewsId: this.NewsId }, "", "", (data) => {
+    debugger;
+    this.LogID=this.navParams.get("LogID");
+    this.appService.httpGet(AppGlobal.API.getDiaryDetail, {LogID: this.LogID }, "", "", (data) => {
+      debugger;
       this.entity = data[0][0];
+      console.log(this.entity);
     }, false);
   }
 
   editForm(){
-    this.navCtrl.push(NewsaddPage,{
+    this.navCtrl.push(this.addJournal,{
       callback: this.callBackSubForm,
       entity:this.entity
     });
@@ -53,9 +56,9 @@ export class NewscontentPage {
   }
 
   deleteForm(){
-    this.appService.alert("确定要删除此条新闻信息吗？",(data)=>{
+    this.appService.alert("确定要删除此条日志吗？",(data)=>{
       if(data=="1"){
-        this.appService.httpPost(AppGlobal.API.newsRemoveform,{NewsId:this.NewsId},"","",(data)=>{
+        this.appService.httpPost(AppGlobal.API.setDiaryDeleteform,{LogID:this.LogID},"","",(data)=>{
           let param = "删除"+data;
           this.callback(param).then(()=>{
             
@@ -67,3 +70,4 @@ export class NewscontentPage {
     });
   }
 }
+

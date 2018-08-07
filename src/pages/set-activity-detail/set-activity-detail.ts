@@ -10,11 +10,15 @@ import { SetActivityAddPage } from '../../pages/set-activity-add/set-activity-ad
 export class SetActivityDetailPage {
   entity={};
   NewsId:any;
+  edit:any=true;
   callback:any;
   constructor(public appService:AppserviceProvider,public navCtrl: NavController, public navParams: NavParams) {
     //获取父页面传过来的回调方法
     this.callback = this.navParams.get("callback");
-
+    if(typeof(this.navParams.get("edit"))!="undefined"){
+      this.edit=this.navParams.get("edit");
+    }
+    
     this.getInfo();
   }
 

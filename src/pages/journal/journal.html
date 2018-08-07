@@ -1,0 +1,128 @@
+
+<ion-header>
+    <ion-navbar color="primary">
+      <ion-title>日志</ion-title>
+      <!-- 兼容增加返回按钮后，标题不居中 -->
+      <ion-buttons right>
+        <button ion-button (click)="openSearch()" style="font-size:24px;width:60px;">
+          <ion-icon name="search"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+    <ion-toolbar style="min-height:45px;padding-left:10px;">
+      <div class="down-select">
+        <span>全部</span>
+        <span class="num">{{pageNum}}条</span>
+      </div>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content isScrolling class="ys-content">
+    <ion-refresher (ionRefresh)="doRefresh($event)"  *ngIf="result">
+      <ion-refresher-content pullingIcon="arrow-down" pullingText="下拉刷新" refreshingSpinner="dots" refreshingText="正在刷新">
+      </ion-refresher-content>
+    </ion-refresher>
+    <ion-fab bottom center>
+      <button ion-fab mini [navPush]="JournaladdPage">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-fab>
+    <ion-list no-lines>
+      <ion-item-sliding class="ys-list" *ngFor="let item of list">
+        <ion-item class="ys-list-title">
+          <ion-grid style="margin:0px;padding:0px;">
+            <ion-row>
+              <ion-col col-8 style="font-weight:bold;">
+                <font color="{{item.FullHeadColor}}">{{item.ProContract}}</font>
+              </ion-col>
+              <ion-col col-4 style="text-align:right;">
+               {{item.LogDate|date:'yyyy-MM-dd'}}
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col col-4>
+                {{item.WorkSummary}}
+              </ion-col>
+              <ion-col col-8 style="text-align:right;">
+                {{item.BeginTime}}--{{item.EndTime}}
+                </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item-options class="ys-list-options" side="right">
+            <button ion-button color="light" (click)="presentConfirm(item.LogID)">
+              <ion-icon name="trash-outline" class="op-del"></ion-icon>
+            </button>
+          </ion-item-options>
+      </ion-item-sliding>
+    
+    </ion-list>
+  </ion-content>
+
+--------------------------------------
+
+  <ion-header>
+    <ion-navbar color="primary">
+      <ion-title>日志</ion-title>
+      <!-- 兼容增加返回按钮后，标题不居中 -->
+      <ion-buttons right>
+        <button ion-button [navPush]="journalsearch" style="font-size:24px;width:60px;">
+          <ion-icon name="search"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+    <ion-toolbar style="min-height:45px;padding-left:10px;">
+      <div class="down-select">
+        <span>全部</span>
+        <span class="num">{{totalNum}}条</span>
+      </div>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content isScrolling class="ys-content">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content pullingIcon="arrow-down" pullingText="下拉刷新" refreshingSpinner="dots" refreshingText="正在刷新">
+      </ion-refresher-content>
+    </ion-refresher>
+    <ion-fab bottom center>
+      <button ion-fab mini (click)="addJournal()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-fab>
+    <ion-list no-lines>
+      <ion-item-sliding class="ys-list" *ngFor="let item of pageList">
+        <ion-item class="ys-list-title" (click)="showDetail(item.LogID)">
+          <ion-grid style="margin:0px;padding:0px;">
+            <ion-row>
+              <ion-col col-8 style="font-weight:bold;">
+                <font>{{item.ProContract}}</font>
+              </ion-col>
+              <ion-col col-4 style="text-align:right;">
+                {{item.CreateDate|relativeTime:'zh'}}
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col col-4>
+                {{item.WorkSummary}}
+              </ion-col>
+              <ion-col col-8 style="text-align:right;">
+                {{item.BeginTime}}--{{item.EndTime}}
+                </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item-options class="ys-list-options" side="right">
+          <button ion-button color="light" (click)="doDelete(item.LogID)">
+            <ion-icon name="trash-outline" class="op-del"></ion-icon>
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" threshold="100px">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多数据...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+  </ion-content>
+  
+  
+  

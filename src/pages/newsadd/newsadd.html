@@ -1,31 +1,62 @@
-<link rel="stylesheet" href="https://cdn.quilljs.com/1.2.2/quill.snow.css">
-<!--
-  Generated template for the NewsaddPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>添加新闻</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>新闻</ion-title>
+    <ion-buttons right>
+      <button ion-button (click)="saveForm()" style="font-size:24px;width:60px;">
+        <ion-icon name="checkmark-outline"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
 
-<ion-content padding>
-
-   <ion-item>
-     <ion-label >标题</ion-label>
-     <ion-input #title ></ion-input>
-   </ion-item>
-   <ion-item>
-      <ion-label>新闻日期</ion-label>
-      <ion-datetime displayFormat="YYYY/MM/DD" ></ion-datetime>
-    </ion-item>
-
-   <quill-editor #content [(ngModel)]="editorContent"></quill-editor>
+<ion-content class="ys-content">
+  <ion-grid style="margin:0px;padding:0px;">
+    <ion-row>
+      <ion-col class="ys-title">
+        标题
+        <font color="red">*</font>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ys-value">
+        <input id="fullhead" type="text" [(ngModel)]="entity.FullHead">
+      </ion-col>
+    </ion-row>
    
-   <button ion-button block (click)="addsave(title)">保存</button>
+    <ion-row>
+      <ion-col class="ys-title">
+        作者
+        <font color="red">*</font>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ys-value">
+        <input id="fullhead" type="text" [(ngModel)]="entity.AuthorName">
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ys-title">
+        来源
+        <font color="red">*</font>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ys-value">
+        <input id="fullhead" type="text" [(ngModel)]="entity.SourceName">
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ys-title">
+        内容
+        <font color="red">*</font>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ys-value" style="height:100%;">
+        <quill-editor [(ngModel)]="entity.NewsContent" style="height:200px;" placeholder="请输入新闻发布内容，\n">
+        </quill-editor>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

@@ -10,8 +10,8 @@ import { LoginPage } from '../../pages/login/login';
 export class UserinfoPage {
   userObj:any;
   constructor(public appService: AppserviceProvider,public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams) {
-    this.appService.getItem(AppGlobal.cache["userObj"],(data)=>{
-      this.userObj=data;
+    this.appService.getItem(AppGlobal.cache.userObj,(data)=>{
+      this.userObj=data[0];
     });
   }
 

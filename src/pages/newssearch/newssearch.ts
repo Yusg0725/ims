@@ -1,29 +1,17 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams} from 'ionic-angular';
-import { AppserviceProvider, AppGlobal } from '../../providers/appservice/appservice';
-
-import { NewsaddPage } from '../newsadd/newsadd';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AppGlobal, AppserviceProvider } from '../../providers/appservice/appservice';
+import { NewsaddPage} from '../newsadd/newsadd';
 
 @IonicPage()
 @Component({
-  selector: 'page-news',
-  templateUrl: 'news.html',
+  selector: 'page-newssearch',
+  templateUrl: 'newssearch.html',
 })
-export class NewsPage {
-
-  public list = [];
-  public count = 0;
-  public page = 0;
-  public pagesize = 9;
-  public result = false;
-
-  pagination: any;
-  NewsaddPage:any=NewsaddPage;
-  NewscontentPage: any = 'NewscontentPage';
-
-  newsadd = NewsaddPage;
-  newsDetail = 'NewscontentPage';
-  newsearch = 'NewssearchPage';
+export class NewssearchPage {
+  myInput:any="";
+  news = NewsaddPage;
+  newsdetail = 'NewscontentPage';
   pageList = [];
   totalNum = 0;
   pageNum = 0;
@@ -31,25 +19,29 @@ export class NewsPage {
   isSearching = false;
   tempinfinite: any = null;
   constructor(public appService: AppserviceProvider, public navCtrl: NavController, public navParams: NavParams) {
-    this.getList(null, null, true);
+    //this.getList(null, null, true);
   }
 
+  Search(){
+    this.pageNum = 0;
+    this.getList(null, null, true);
+  }
   getList(Refresh, infiniteScroll, flag) {
     if (this.tempinfinite == null && infiniteScroll != null) {
       this.tempinfinite = infiniteScroll;
     }
     const numlist = AppGlobal.API.getActivityNum;
-    this.appService.httpGet(numlist, { TypeId: 1 }, "", "", (data) => {
+    this.appService.httpGet(numlist, { TypeId: 1,FullHead:this.myInput }, "", "", (data) => {
       this.totalNum = data[0][0]["num"];
     }, false);
 
     const listurl = AppGlobal.API.getNews;
-    this.appService.httpGet(listurl, { PageNum: this.pageNum, PageSize: this.pageSize, TypeId: 1 }, "", "", (data) => {
+    this.appService.httpGet(listurl, { PageNum: this.pageNum, PageSize: this.pageSize, TypeId: 1,FullHead:this.myInput }, "", "", (data) => {
       this.pageNum += 1;
       if (data[0].length < 10) {
         if (this.tempinfinite != null) {
           this.tempinfinite.enable(false);
-        } else {
+        }else if  (infiniteScroll!=null) {
           infiniteScroll.enable(false);
         }
       } else {
@@ -65,11 +57,6 @@ export class NewsPage {
     }, false);
   }
 
-  addNews() {
-    this.navCtrl.push(this.newsadd, {
-      callback: this.callBackSubForm
-    })
-  }
 
   // 用于pop 回调的 block
   callBackSubForm = (params) => {
@@ -97,7 +84,7 @@ export class NewsPage {
   }
 
   showDetail(newsid) {
-    this.navCtrl.push(this.newsDetail, {
+    this.navCtrl.push(this.newsdetail, {
       callback: this.callBackSubForm,
       NewsId: newsid
     })

@@ -1,38 +1,33 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>新闻发布</ion-title>
+    <ion-buttons left>
+        <!-- (ionInput)="onInput($event)" (ionCancel)="onCancel($event)" -->
+      <ion-searchbar [(ngModel)]="myInput" [showCancelButton]="shouldShowCancel" >
+      </ion-searchbar>
+    </ion-buttons>
     <!-- 兼容增加返回按钮后，标题不居中 -->
     <ion-buttons right>
-      <button ion-button [navPush]="newsearch" style="font-size:24px;width:60px;">
-        <ion-icon name="search"></ion-icon>
+      <button ion-button (click)="Search()" style="font-size:18px;width:60px;">
+        搜索
       </button>
     </ion-buttons>
   </ion-navbar>
   <ion-toolbar style="min-height:45px;padding-left:10px;">
     <div class="down-select">
-      <span>全部</span>
+      <span>搜索结果</span>
       <span class="num">{{totalNum}}条</span>
     </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content isScrolling class="ys-content">
-  <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content pullingIcon="arrow-down" pullingText="下拉刷新" refreshingSpinner="dots" refreshingText="正在刷新">
-    </ion-refresher-content>
-  </ion-refresher>
-  <ion-fab bottom center>
-    <button ion-fab mini (click)="addNews()">
-      <ion-icon name="add"></ion-icon>
-    </button>
-  </ion-fab>
   <ion-list no-lines>
     <ion-item-sliding class="ys-list" *ngFor="let item of pageList">
-      <ion-item class="ys-list-title" (click)="showDetail(item.NewsId)">
+      <ion-item class="ys-list-title" (click)="showDetail(item.LogID)">
         <ion-grid style="margin:0px;padding:0px;">
           <ion-row>
             <ion-col col-8 style="font-weight:bold;">
-              <font color="{{item.FullHeadColor}}">{{item.FullHead}}</font>
+              <font>{{item.ProContract}}</font>
             </ion-col>
             <ion-col col-4 style="text-align:right;">
               {{item.CreateDate|relativeTime:'zh'}}
@@ -40,11 +35,11 @@
           </ion-row>
           <ion-row>
             <ion-col col-4>
-              {{item.AuthorName}}
+              {{item.WorkSummary}}
             </ion-col>
             <ion-col col-8 style="text-align:right;">
-              {{item.SourceName}}
-            </ion-col>
+              {{item.BeginTime}}--{{item.EndTime}}
+              </ion-col>
           </ion-row>
         </ion-grid>
       </ion-item>
@@ -56,7 +51,7 @@
     </ion-item-sliding>
   </ion-list>
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)" threshold="100px">
-      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多数据...">
-      </ion-infinite-scroll-content>
-    </ion-infinite-scroll>
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多数据...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

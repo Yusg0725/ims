@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { IonicPageModule } from 'ionic-angular';
-import { NewsaddPage } from './newsadd';
+// import { IonicPageModule } from 'ionic-angular';
+//import { NewsaddPage } from './newsadd';
 
 @NgModule({
   declarations: [

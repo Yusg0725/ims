@@ -1,0 +1,91 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>日志</ion-title>
+    <ion-buttons right>
+      <button ion-button navPop (click)="addsave(ProContractID)" style="font-size:24px;width:60px;">
+        <ion-icon name="checkmark-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content class="ys-content">
+  <ion-grid style="margin:0px;padding:0px;">
+    <ion-row>
+      <ion-col class="ys-selecttitle">
+        项目名称
+        <font color="red">*</font>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ys-selectvalue">
+              <ion-select class="ion-select" id="ProContractID" #ProContractID [(ngModel)]="entity.ProContractID">
+                <ion-option value="1">项目名称1</ion-option>
+                <ion-option value="2">项目名称2</ion-option>
+              </ion-select>
+      </ion-col>
+    </ion-row>  
+
+    <ion-row>
+        <ion-col class="ys-title">
+          日志日期
+          <font color="red">*</font>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="ys-value">
+            <ion-datetime id="LogDate" displayFormat="YYYY年MM月DD日" [(ngModel)]="entity.LogDate"></ion-datetime>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col class="ys-title">
+            开始时间
+            <font color="red">*</font>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="ys-value">
+              <ion-datetime displayFormat="HH:mm"  [(ngModel)]="entity.BeginTime"></ion-datetime>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col class="ys-title">
+              结束时间
+              <font color="red">*</font>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="ys-value">
+                <ion-datetime displayFormat="HH:mm"  [(ngModel)]="entity.EndTime"></ion-datetime>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col class="ys-title">
+                工作内容
+                <font color="red">*</font>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col class="ys-textareavalue">
+                  <ion-item>
+                      <ion-textarea [(ngModel)]="entity.WorkSummary"></ion-textarea>
+                    </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col class="ys-title">
+                  备注
+                 
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col class="ys-textareavalue">
+                    <ion-item>
+                        <ion-textarea [(ngModel)]="entity.Remark"></ion-textarea>
+                      </ion-item>
+                </ion-col>
+              </ion-row>
+  </ion-grid>
+
+</ion-content>
