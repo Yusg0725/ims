@@ -1,0 +1,49 @@
+<ion-header>
+    <ion-navbar color="primary">
+      <ion-title>扫描</ion-title>
+      <!-- 兼容增加返回按钮后，标题不居中 -->
+      <ion-buttons right>
+        <button ion-button style="width:60px;">
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+
+  <ion-content class="qrscanner">
+      <div class="qrscanner-area">
+      </div>
+      <div class="through-line"></div>
+      <div class="button-bottom">
+        <ion-row style="text-align: center;margin: 0px auto">
+          <ion-col col-4>
+            <button (click)="toggleLight()" ion-fab *ngIf="flashNoSelect" ion-fab color="primary">
+              <ion-icon name="flash"></ion-icon>
+            </button>
+            <button (click)="toggleLight()" ion-fab *ngIf="flashIsSelect" ion-fab color="danger">
+              <ion-icon name="flash"></ion-icon>
+            </button>
+          </ion-col>
+    
+          <ion-col col-4>
+            <button (click)="toggleCamera()" *ngIf="cameraNoSelect" ion-fab color="primary">
+              <ion-icon name="reverse-camera"></ion-icon>
+            </button>
+    
+            <button (click)="toggleCamera()" *ngIf="cameraIsSelect" ion-fab color="danger">
+              <ion-icon name="reverse-camera"></ion-icon>
+            </button>
+    
+          </ion-col>
+    
+          <ion-col col-4>
+            <button  ion-fab (click)="changeStyle()" *ngIf="noSelect"  color="primary">
+              <ion-icon name="scan" >连</ion-icon>
+            </button>
+    
+            <button  ion-fab (click)="changeStyle()" *ngIf="isSelect" color="danger" >
+              <ion-icon name="scan" >连</ion-icon>
+            </button>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-content>

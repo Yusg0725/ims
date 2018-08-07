@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { MyAlipayPage } from './my-alipay';
+import { MyQrscanPage } from './my-qrscan';
 
 @NgModule({
   declarations: [
-    MyAlipayPage,
+    MyQrscanPage,
   ],
   imports: [
-    IonicPageModule.forChild(MyAlipayPage),
+    IonicPageModule.forChild(MyQrscanPage),
   ],
 })
-export class MyAlipayPageModule {}
+export class MyQrscanPageModule {}

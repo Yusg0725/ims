@@ -14,8 +14,7 @@ import { CallNumber } from '@ionic-native/call-number';
 import { Contacts } from '@ionic-native/contacts';
 import { Base64 } from '@ionic-native/base64';
 import { PipesModule } from '../pipes/pipes.module';
-import { Alipay } from '@ionic-native/alipay';
-import { ZBar } from '@ionic-native/zbar';
+import { QRScanner,QRScannerStatus } from '@ionic-native/qr-scanner';
 import { QuillModule } from 'ngx-quill';
 
 import { MyPage } from '../pages/my/my';
@@ -24,7 +23,9 @@ import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage} from '../pages/login/login';
 import { SetActivityAddPage } from '../pages/set-activity-add/set-activity-add';
+import { NewsaddPage } from '../pages/newsadd/newsadd';
 
+import { Vibration } from '@ionic-native/vibration';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -40,6 +41,7 @@ import { AppserviceProvider,AppGlobal } from '../providers/appservice/appservice
     TabsPage,
     LoginPage,
     SetActivityAddPage,
+    NewsaddPage
   ],
   imports: [
     BrowserModule,
@@ -70,6 +72,7 @@ import { AppserviceProvider,AppGlobal } from '../providers/appservice/appservice
     TabsPage,
     LoginPage,
     SetActivityAddPage,
+    NewsaddPage
   ],
   providers: [
     StatusBar,
@@ -83,8 +86,8 @@ import { AppserviceProvider,AppGlobal } from '../providers/appservice/appservice
     Contacts,
     FileTransfer,
     Base64,
-    Alipay,
-    ZBar
+    QRScanner,
+    Vibration
   ]
 })
 export class AppModule {}

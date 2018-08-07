@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams} from 'ionic-angular';
 import { AppserviceProvider, AppGlobal } from '../../providers/appservice/appservice';
-
+import { NewsaddPage } from '../newsadd/newsadd';
 @IonicPage()
 @Component({
   selector: 'page-news',
@@ -15,7 +15,7 @@ export class NewsPage {
   public result = false;
 
   pagination: any;
-  NewsaddPage:any="NewsaddPage";
+  NewsaddPage:any=NewsaddPage;
   NewscontentPage: any = 'NewscontentPage';
 
   constructor(public appService: AppserviceProvider, public navCtrl: NavController, public navParams: NavParams) {

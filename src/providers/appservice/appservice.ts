@@ -11,7 +11,7 @@ export class AppGlobal {
         firstIn: "_firstIn"
     };
     //接口基础地址
-    static domain = "http://192.168.0.62:3000";//http://118.190.96.161:8300
+    static domain = "http://39.104.28.232:3000";//http://118.190.96.161:8300
     //接口业务地址
     static API: any = {
         login: "/api/login/checklogin",

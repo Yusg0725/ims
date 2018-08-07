@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 //import { IonicPageModule } from 'ionic-angular';
 //import { SetActivityAddPage } from './set-activity-add';
-import { QuillModule } from 'ngx-quill';
+//import { QuillModule } from 'ngx-quill';
 
 
 @NgModule({
@@ -9,7 +9,7 @@ import { QuillModule } from 'ngx-quill';
     //SetActivityAddPage,
   ],
   imports: [
-    QuillModule,
+    //QuillModule,
     //IonicPageModule.forChild(SetActivityAddPage),
   ],
 })
