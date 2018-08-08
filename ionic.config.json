@@ -1,7 +1,8 @@
 {
   "name": "ims",
   "integrations": {
-    "cordova": {}
+    "cordova": {},
+    "capacitor": {}
   },
   "type": "ionic-angular",
   "app_id": ""

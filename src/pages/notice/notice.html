@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <div style="width:50%;margin-left:25%;">
+      <ion-segment [(ngModel)]="noticeflag">
+        <ion-segment-button value="no">
+            未读
+          <!-- 未读<ion-badge color="primary">{{noticebadge}}</ion-badge> -->
+        </ion-segment-button>
+        <ion-segment-button value="yes">
+          已读
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+  </ion-navbar>
+</ion-header>
+
+<ion-content style="background-color:#F9F9F9;">
+  <div [ngSwitch]="noticeflag">
+    <ion-list *ngSwitchCase="'no'">
+      <ion-item-group>
+        <ion-item class="ys-item" *ngFor="let item of noticeunreadlist">
+          <ion-grid style="margin:0px;padding:0px;">
+            <ion-row>
+              <ion-col col-8 style="font-weight:bold;" (click)="showDetail(2,item.NewsId)">
+                <font color="{{item.FullHeadColor}}">{{item.FullHead}}</font>
+              </ion-col>
+              <ion-col col-4 style="text-align:right;">
+                {{item.CreateDate|date:'yyyy-MM-dd'}}
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-item-group>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'yes'">
+      <ion-item-group>
+        <ion-item class="ys-item" *ngFor="let item of noticereadlist">
+          <ion-grid style="margin:0px;padding:0px;">
+            <ion-row>
+              <ion-col col-8 style="font-weight:bold;" (click)="showDetail(2,item.NewsId)">
+                <font color="{{item.FullHeadColor}}">{{item.FullHead}}</font>
+              </ion-col>
+              <ion-col col-4 style="text-align:right;">
+                {{item.CreateDate|date:'yyyy-MM-dd'}}
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-item-group>
+    </ion-list>
+  </div>
+</ion-content>

@@ -1,0 +1,85 @@
+
+<ion-header>
+
+    <ion-navbar color="primary" >
+        <ion-title style="text-align:center">公告管理</ion-title>
+        <ion-buttons right>
+            <button ion-button (click)="submitnotice()" style="font-size:24px;width:60px;">
+                <ion-icon name="checkmark-outline"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="ys-content">
+    <ion-grid style="margin:0px;padding:0px;">
+        <ion-row>
+        <ion-col class="ys-title">
+            主标题
+            <font color="red">*</font>
+        </ion-col>
+        </ion-row>
+        <ion-row>
+        <ion-col class="ys-value">
+            <input  id="fullhead" type="text" [(ngModel)]="notice.FullHead">
+        </ion-col>
+        </ion-row>
+        <ion-row>
+        <ion-col class="ys-title">
+            副标题
+            <font color="red">*</font>
+        </ion-col>
+        </ion-row>
+        <ion-row>
+        <ion-col class="ys-value">
+            <input  id="fullhead" type="text" [(ngModel)]="notice.BriefHead">
+        </ion-col>
+        </ion-row>
+        <ion-row>
+        <ion-col class="ys-title">
+            标题颜色
+        </ion-col>
+        </ion-row>
+        <ion-row>
+        <ion-col class="ys-value">
+            <ion-range (ionChange)="changecolorTitle()" min="0" max="17" step="1" snaps="true" [(ngModel)]="notice.FullHeadColor"></ion-range>
+        </ion-col>
+        </ion-row>
+        <ion-row>
+        <ion-col class="ys-title">
+            作者
+            <font color="red">*</font>
+        </ion-col>
+        </ion-row>
+        <ion-row>
+        <ion-col class="ys-value">
+            <input  type="text" [(ngModel)]="notice.AuthorName">
+        </ion-col>
+        </ion-row>
+        <ion-row>
+        <ion-col class="ys-title">
+            来源
+            <font color="red">*</font>
+        </ion-col>
+        </ion-row>
+        <ion-row>
+        <ion-col class="ys-value">
+            <input  type="text" [(ngModel)]="notice.SourceName">
+        </ion-col>
+        </ion-row>
+        <ion-row>
+        <ion-col class="ys-title">
+            内容
+            <font color="red">*</font>
+        </ion-col>
+        </ion-row>
+        <ion-row>
+        <ion-col class="ys-value" style="height:100%;">
+            <quill-editor [(ngModel)]="notice.NewsContent" style="height:200px;" placeholder="请输入活动发布内容，\n">
+            </quill-editor>
+        </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

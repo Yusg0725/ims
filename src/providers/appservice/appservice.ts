@@ -22,17 +22,30 @@ export class AppGlobal {
         getNews:"/api/news/getlist",
         newsSaveform:"/api/news/saveform",
         newsRemoveform:"/api/news/deleteform",
-
         newsInfo:"/api/news/getdetail",
+        
+        saveNoticeForm:"/api/news/saveform",
+        getNoticeList:"/api/news/getlist",
+        getNoticeForm:"/api/news/getdetail",
+        deleteNotice:"/api/news/deleteform",
+        
         getActivityNum:"/api/news/getcount",
+        getActivityDetail:"/api/news/getdetail",
         getActivityList:"/api/news/getlist",
         saveActivityForm:"/api/news/saveform",
         deleteActivityForm:"/api/news/deleteform",
+        
         getDiaryCount:"/api/diary/getcount",
         getDiaryList:"/api/diary/getlist",
         getDiaryDetail:"/api/diary/getdetail",
         setDiarySaveform:"/api/diary/saveform",
-        setDiaryDeleteform:"/api/diary/deleteform"
+        setDiaryDeleteform:"/api/diary/deleteform",
+        
+        saveClock:"/api/clockin/saveform",
+        deleteClock:"/api/clockin/deleteform",
+        clockDetail:"/api/clockin/getdetail",
+        clockList:"/api/clockin/getlist",
+        clockCount:"/api/clockin/getcount",
 
     };
 } 

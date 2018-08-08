@@ -1,0 +1,28 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title style="text-align: center">公告详细</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="noticeedit()">
+        <ion-icon name="ios-create-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="deletenotice()">
+        <ion-icon name="ios-trash-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <h2>{{list.FullHead}}</h2>
+
+  <div [innerHtml]="list.NewsContent">
+
+  </div>
+
+</ion-content>

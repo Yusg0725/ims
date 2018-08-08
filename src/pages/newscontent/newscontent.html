@@ -2,10 +2,10 @@
   <ion-navbar color="primary">
     <ion-title>新闻详情</ion-title>
     <ion-buttons right>
-      <button ion-button (click)="editForm()" style="font-size:24px;width:30px;">
+      <button ion-button (click)="editForm()" *ngIf="edit" style="font-size:24px;width:30px;">
         <ion-icon name="create-outline"></ion-icon>
       </button>
-      <button ion-button (click)="deleteForm()" style="font-size:24px;width:30px;">
+      <button ion-button (click)="deleteForm()" *ngIf="edit" style="font-size:24px;width:30px;">
         <ion-icon name="trash-outline"></ion-icon>
       </button>
     </ion-buttons>

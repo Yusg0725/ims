@@ -3,14 +3,14 @@
     <img src="./assets/imgs/1.jpg" />
   </div>
   <ion-item-group>
-      <ion-item-divider style="background-color:#f4f4f4;margin:0px;padding:0 0 0 5px;">
+      <ion-item-divider style="background-color:#f4f4f4;margin:0px;padding:0px;">
           <ion-grid style="margin:0px;padding:0px;">
             <ion-row>
               <ion-col col-8>
-                <font color="primary">公司新闻</font>
+                  <button ion-button clear color="light" style="margin-left:-15px;"><font color="primary">公司新闻</font></button>
               </ion-col>
               <ion-col col-4 style="text-align:right;">
-                <font color="bgcolor_b" (click)="goPage(1)">More..</font>
+                  <button ion-button clear color="light" style="margin-right:-15px;" (click)="goPage('NewsPage')"><font color="bgcolor_b">More..</font></button>               
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -29,42 +29,16 @@
     </ion-item>
   </ion-item-group>
   <ion-item-group>
-      <ion-item-divider style="background-color:#f4f4f4;margin:0px;padding:0 0 0 5px;">
-          <ion-grid style="margin:0px;padding:0px;">
-            <ion-row>
-              <ion-col col-8>
-                <font color="primary">公司公告</font>
-              </ion-col>
-              <ion-col col-4 style="text-align:right;">
-                <font color="bgcolor_b" (click)="goPage(2)">More..</font>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item-divider>
-    <ion-item class="ys-item" *ngFor="let item of noticelist">
-      <ion-grid style="margin:0px;padding:0px;">
-        <ion-row>
-          <ion-col col-8 style="font-weight:bold;" (click)="showDetail(2,item.NewsId)">
-            <font color="{{item.FullHeadColor}}">{{item.FullHead}}</font>
-          </ion-col>
-          <ion-col col-4 style="text-align:right;">
-            {{item.CreateDate|date:'yyyy-MM-dd'}}
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-item>
-  </ion-item-group>
-  <ion-item-group>
     <ion-item-divider style="background-color:#f4f4f4;margin:0px;padding:0 0 0 5px;">
       <ion-grid style="margin:0px;padding:0px;">
-        <ion-row>
-          <ion-col col-8>
-            <font color="primary">公司活动</font>
-          </ion-col>
-          <ion-col col-4 style="text-align:right;" [navPush]="SetActivityPage">
-            <font color="bgcolor_b" >More..</font>
-          </ion-col>
-        </ion-row>
+          <ion-row>
+              <ion-col col-8>
+                  <button ion-button clear color="light" style="margin-left:-20px;"><font color="primary">公司活动</font></button>
+              </ion-col>
+              <ion-col col-4 style="text-align:right;">
+                  <button ion-button clear color="light" style="margin-right:-15px;" (click)="goPage('SetActivityPage')"><font color="bgcolor_b">More..</font></button>               
+              </ion-col>
+            </ion-row>
       </ion-grid>
     </ion-item-divider>
     <ion-item class="ys-item" *ngFor="let item of activitylist">

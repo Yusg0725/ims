@@ -3,4 +3,5 @@ export class variable{
   public static scanData:any=[];        //扫描数据集合
   public static isSweep:boolean=false;  //是否连扫,默认不连扫
   public static scanTxt:string="";      //单次扫描返回的值
+  public static noticebadge:any=0;     //通知公告徽章
 }

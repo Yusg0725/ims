@@ -1,0 +1,30 @@
+
+<ion-header>
+  <ion-navbar  color="primary">
+    <ion-title style="text-align:center">我的打卡</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only color="royal" (click)="signSubmit()">
+        确定
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content >
+    <div class="baidumap" #map2 id="map_container2" style="width:100%;height: 60%"></div>
+    <hr>
+    <div style="height: 36%;overflow:scroll">
+      <ion-list>
+        <ion-item  *ngFor="let item of list" (click)="setClock(item)">
+          <ion-avatar item-start style="text-align: center;line-height: 40px;">
+            <ion-icon name="pin" ></ion-icon>
+          </ion-avatar>
+          <h2 class="buildname" >{{item.buildName}}</h2>
+          <p>{{item.detailRoldName}}</p>
+        </ion-item>
+      </ion-list>
+    </div>
+    
+</ion-content>

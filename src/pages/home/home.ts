@@ -8,11 +8,9 @@ import { AppserviceProvider, AppGlobal } from '../../providers/appservice/appser
 })
 export class HomePage {
   public newslist = [];
-  public noticelist = [];
   public activitylist = [];
   constructor(public appService: AppserviceProvider, public navCtrl: NavController) {
     this.getNewList()//获取新闻列表
-    this.getNoticeList()//获取公告列表
     this.getActivityList()//获取活动列表
   }
   getNewList() {
@@ -21,12 +19,7 @@ export class HomePage {
       this.newslist = data[0];
     });
   }
-  getNoticeList() {
-    const listurl = AppGlobal.API.getActivityList;
-    this.appService.httpGet(listurl, { PageNum: 0, PageSize: 5, TypeId: 2 }, "", "", (data) => {
-      this.noticelist = data[0];
-    });
-  }
+
   getActivityList() {
     const listurl = AppGlobal.API.getActivityList;
     this.appService.httpGet(listurl, { PageNum: 0, PageSize: 5, TypeId: 3 }, "", "", (data) => {
@@ -34,21 +27,23 @@ export class HomePage {
     });
   }
 
-  showDetail(flag, NewsId) {
+  showDetail(flag, newsid) {
     switch (flag) {
       case 1:
-        break;
-      case 2:
+      this.navCtrl.push('NewscontentPage', {
+        edit: false,
+        NewsId: newsid
+      });
         break;
       case 3:
         this.navCtrl.push('SetActivityDetailPage', {
           edit: false,
-          NewsId: NewsId
+          NewsId: newsid
         });
         break;
-
-      default:
-        break;
     }
+  }
+  goPage(page){
+    this.navCtrl.push(page);
   }
 }

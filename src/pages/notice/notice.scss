@@ -1,0 +1,42 @@
+page-notice {
+    .ys-item{
+        margin:0px;
+        width:100%;
+        padding:0px;
+        font-size:1.3rem;
+        min-height:40px;
+    }
+    .item-inner{
+        max-height:40px;
+    }
+    .segment-md .segment-button.activated, .segment-md .segment-button.segment-activated{
+        max-height: 40px;
+        line-height: 40px;
+        background-color: #fff;
+        color:#488aff;
+        border:solid 1px #fff;
+        // .badge-md-primary{
+        //     position: absolute;
+        //     z-index:400px;
+        //     color:#fff;
+        //     background-color: #488aff;
+        //     top:0px;
+        //     right:0px;
+        // }
+    }
+    .segment-md .segment-button{
+        max-height: 40px;
+        line-height: 40px;
+        background-color: #488aff;
+        color:#fff;
+        border:solid 1px #fff;
+        // .badge-md-primary{
+        //     position: absolute;
+        //     z-index:400px;
+        //     color:#488aff;
+        //     background-color: #fff;
+        //     top:0px;
+        //     right:0px;
+        // }
+    }    
+}

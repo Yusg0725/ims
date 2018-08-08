@@ -18,12 +18,11 @@ export class SetActivityDetailPage {
     if(typeof(this.navParams.get("edit"))!="undefined"){
       this.edit=this.navParams.get("edit");
     }
-    
+    this.NewsId=this.navParams.get("NewsId");
     this.getInfo();
   }
 
   getInfo(){
-    this.NewsId=this.navParams.get("NewsId");
     this.appService.httpGet(AppGlobal.API.getActivityDetail, {NewsId: this.NewsId }, "", "", (data) => {
       this.entity = data[0][0];
     }, false);
