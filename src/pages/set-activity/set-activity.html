@@ -31,21 +31,31 @@
       <ion-item class="ys-list-title" (click)="showDetail(item.NewsId)">
         <ion-grid style="margin:0px;padding:0px;">
           <ion-row>
-            <ion-col col-8 style="font-weight:bold;">
-              <font color="{{item.FullHeadColor}}">{{item.FullHead}}</font>
+            <ion-col col-2 style="padding-left:10px;">
+              <ion-avatar item-start>
+                <img src="{{item.Cover}}">
+              </ion-avatar>
             </ion-col>
-            <ion-col col-4 style="text-align:right;">
-              {{item.CreateDate|relativeTime:'zh'}}
+            <ion-col col-10>
+              <ion-row>
+                <ion-col col-8 style="font-weight:bold;">
+                  <font color="{{item.FullHeadColor}}">{{item.FullHead}}</font>
+                </ion-col>
+                <ion-col col-4 style="text-align:right;">
+                  {{item.CreateDate|relativeTime:'zh'}}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col-4>
+                  {{item.AuthorName}}
+                </ion-col>
+                <ion-col col-8 style="text-align:right;">
+                  {{item.SourceName}}
+                </ion-col>
+              </ion-row>
             </ion-col>
           </ion-row>
-          <ion-row>
-            <ion-col col-4>
-              {{item.AuthorName}}
-            </ion-col>
-            <ion-col col-8 style="text-align:right;">
-              {{item.SourceName}}
-            </ion-col>
-          </ion-row>
+
         </ion-grid>
       </ion-item>
       <ion-item-options class="ys-list-options" side="right">
@@ -56,7 +66,7 @@
     </ion-item-sliding>
   </ion-list>
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)" threshold="100px">
-      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多数据...">
-      </ion-infinite-scroll-content>
-    </ion-infinite-scroll>
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多数据...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

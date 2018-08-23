@@ -8,7 +8,7 @@ import { SetActivityAddPage } from '../../pages/set-activity-add/set-activity-ad
   templateUrl: 'set-activity-detail.html',
 })
 export class SetActivityDetailPage {
-  entity={};
+  entity: any = {}
   NewsId:any;
   edit:any=true;
   callback:any;

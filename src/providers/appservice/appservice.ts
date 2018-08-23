@@ -1,6 +1,6 @@
 import { Http, Jsonp, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
-import { LoadingController, AlertController, ToastController } from 'ionic-angular';
+import { LoadingController, AlertController, ToastController, ActionSheetController } from 'ionic-angular';
 
 @Injectable()
 export class AppGlobal {
@@ -10,6 +10,10 @@ export class AppGlobal {
         homeRight: "_homeright",
         firstIn: "_firstIn"
     };
+    //消息服务器地址
+    static signalr="http://192.168.0.99:9595/signalr";//39.104.28.232:9595
+    //文件服务地址
+    static fileserver = "http://39.104.28.232:3200";
     //接口基础地址
     static domain = "http://39.104.28.232:3000";//http://118.190.96.161:8300
     //接口业务地址
@@ -18,42 +22,42 @@ export class AppGlobal {
         getSlide: "/api/Home/GetSlides",
         upload: "/api/File/Upload",
         download: "/api/File/Download",
-      
-        getNews:"/api/news/getlist",
-        newsSaveform:"/api/news/saveform",
-        newsRemoveform:"/api/news/deleteform",
-        newsInfo:"/api/news/getdetail",
-        
-        saveNoticeForm:"/api/news/saveform",
-        getNoticeList:"/api/news/getlist",
-        getNoticeForm:"/api/news/getdetail",
-        deleteNotice:"/api/news/deleteform",
-        
-        getActivityNum:"/api/news/getcount",
-        getActivityDetail:"/api/news/getdetail",
-        getActivityList:"/api/news/getlist",
-        saveActivityForm:"/api/news/saveform",
-        deleteActivityForm:"/api/news/deleteform",
-        
-        getDiaryCount:"/api/diary/getcount",
-        getDiaryList:"/api/diary/getlist",
-        getDiaryDetail:"/api/diary/getdetail",
-        setDiarySaveform:"/api/diary/saveform",
-        setDiaryDeleteform:"/api/diary/deleteform",
-        
-        saveClock:"/api/clockin/saveform",
-        deleteClock:"/api/clockin/deleteform",
-        clockDetail:"/api/clockin/getdetail",
-        clockList:"/api/clockin/getlist",
-        clockCount:"/api/clockin/getcount",
+
+        getNews: "/api/news/getlist",
+        newsSaveform: "/api/news/saveform",
+        newsRemoveform: "/api/news/deleteform",
+        newsInfo: "/api/news/getdetail",
+
+        saveNoticeForm: "/api/news/saveform",
+        getNoticeList: "/api/news/getlist",
+        getNoticeForm: "/api/news/getdetail",
+        deleteNotice: "/api/news/deleteform",
+
+        getActivityNum: "/api/news/getcount",
+        getActivityDetail: "/api/news/getdetail",
+        getActivityList: "/api/news/getlist",
+        saveActivityForm: "/api/news/saveform",
+        deleteActivityForm: "/api/news/deleteform",
+
+        getDiaryCount: "/api/diary/getcount",
+        getDiaryList: "/api/diary/getlist",
+        getDiaryDetail: "/api/diary/getdetail",
+        setDiarySaveform: "/api/diary/saveform",
+        setDiaryDeleteform: "/api/diary/deleteform",
+
+        saveClock: "/api/clockin/saveform",
+        deleteClock: "/api/clockin/deleteform",
+        clockDetail: "/api/clockin/getdetail",
+        clockList: "/api/clockin/getlist",
+        clockCount: "/api/clockin/getcount",
 
     };
-} 
+}
 @Injectable()
 export class AppserviceProvider {
     private headers = new Headers({ 'Content-Type': 'application/json; charset=UTF-8' });//x-www-form-urlencoded
     constructor(public http: Http, public jsonp: Jsonp, public loadingCtrl: LoadingController,
-        private alertCtrl: AlertController, private toastCtrl: ToastController) {
+        private alertCtrl: AlertController, private toastCtrl: ToastController, private actionsheetCtrl: ActionSheetController) {
 
     }
 
@@ -206,6 +210,34 @@ export class AppserviceProvider {
         }
     }
 
+    prompt(input, message, callback?) {
+        if (callback) {
+            let alert = this.alertCtrl.create({
+                title: '提示',
+                message: message,
+                inputs: input,
+                buttons: [{
+                    text: "确定",
+                    handler: data => {
+                        callback(data);
+                    }
+                }, {
+                    text: "取消",
+                    handler: data => {
+                        callback(0);
+                    }
+                }]
+            });
+            alert.present();
+        } else {
+            let alert = this.alertCtrl.create({
+                title: '提示',
+                message: message,
+                buttons: ["确定"]
+            });
+            alert.present();
+        }
+    }
     toast(message, callback?) {
         let toast = this.toastCtrl.create({
             message: message,
@@ -234,6 +266,34 @@ export class AppserviceProvider {
         }
     }
 
+    actionsheet(title, buttons, callback?) {
+        let _title = title;
+        let _buttons = [];
+        for (let index = 0; index < buttons.length; index++) {
+            const _button = {
+                id: "",
+                text: "",
+                role: null,
+                icon: null,
+                handler: () => { },
+            }
+            _button.text = buttons[index].text;
+            _button.role = buttons[index].role;
+            _button.icon = buttons[index].icon;
+            _button.handler = () => {
+                if (callback) {
+                    callback(buttons[index].id);
+                }
+            };
+            _buttons.push(_button);
+        }
+        let actionSheet = this.actionsheetCtrl.create({
+            title: _title,
+            cssClass: 'action-sheets-basic-page',
+            buttons: _buttons
+        });
+        actionSheet.present();
+    }
     setItem(key: string, obj: any) {
         try {
             var json = JSON.stringify(obj);

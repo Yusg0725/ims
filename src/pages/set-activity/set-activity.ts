@@ -19,9 +19,12 @@ export class SetActivityPage {
   isSearching = false;
   tempinfinite: any = null;
   constructor(public appService: AppserviceProvider, public navCtrl: NavController, public navParams: NavParams) {
-    this.getList(null, null, true);
+    //this.getList(null, null, true);
   }
 
+  ionViewDidLoad() {
+    this.getList(null, null, true);
+  }
   getList(Refresh, infiniteScroll, flag) {
     if (this.tempinfinite == null && infiniteScroll != null) {
       this.tempinfinite = infiniteScroll;
@@ -37,7 +40,8 @@ export class SetActivityPage {
       if (data[0].length < 10) {
         if (this.tempinfinite != null) {
           this.tempinfinite.enable(false);
-        } else {
+        }
+        if (infiniteScroll != null) {
           infiniteScroll.enable(false);
         }
       } else {

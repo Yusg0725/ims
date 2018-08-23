@@ -30,7 +30,47 @@
     </ion-row>
     <ion-row>
       <ion-col class="ys-value">
-        <ion-range (ionChange)="changecolorTitle()" min="0" max="17" step="1" snaps="true" [(ngModel)]="colorValue"></ion-range>
+        <ion-range (ionChange)="changecolorTitle()" min="0" max="17" step="1" [(ngModel)]="colorValue"></ion-range>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ys-title">
+        日期
+        <font color="red">*</font>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ys-value">
+        <ion-datetime displayFormat="YYYY年MM月DD日" cancelText="取消" doneText="完成" [(ngModel)]="entity.ReleaseTime"></ion-datetime>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ys-title">
+        封面
+        <font color="red">*</font>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ys-value">
+        <ion-grid *ngIf="!imgView">
+          <ion-row style="text-align: center;">
+            <ion-col col-6 style="border:solid 1px #ccc;" (click)="openCamera(1)">
+              <ion-icon name="camera-outline" style="font-size:60px;"></ion-icon>
+              <h3>拍照</h3>
+            </ion-col>
+            <ion-col col-6 style="border:solid 1px #ccc;" (click)="openCamera(2)">
+              <ion-icon name="images-outline" style="font-size:60px;"></ion-icon>
+              <h3>相册</h3>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-grid *ngIf="imgView">
+          <ion-row>
+            <ion-col col-12 (click)="reloadImg()">
+              <img [src]="entity.Cover" />
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -63,7 +103,39 @@
     </ion-row>
     <ion-row>
       <ion-col class="ys-value" style="height:100%;">
-        <quill-editor [(ngModel)]="entity.NewsContent" style="height:200px;" placeholder="请输入活动发布内容，\n">
+        <quill-editor [(ngModel)]="entity.NewsContent" placeholder="请输入活动发布内容，\n">
+            <div quill-editor-toolbar>
+                <span class="ql-formats">
+                  <button class="ql-bold"></button>
+                  <button class="ql-italic"></button>
+                  <button class="ql-underline"></button>
+                  <select class="ql-color"><option selected="selected"></option><option value="#e60000"></option><option value="#ff9900"></option><option value="#ffff00"></option><option value="#008a00"></option><option value="#0066cc"></option><option value="#9933ff"></option><option value="#ffffff"></option><option value="#facccc"></option><option value="#ffebcc"></option><option value="#ffffcc"></option><option value="#cce8cc"></option><option value="#cce0f5"></option><option value="#ebd6ff"></option><option value="#bbbbbb"></option><option value="#f06666"></option><option value="#ffc266"></option><option value="#ffff66"></option><option value="#66b966"></option><option value="#66a3e0"></option><option value="#c285ff"></option><option value="#888888"></option><option value="#a10000"></option><option value="#b26b00"></option><option value="#b2b200"></option><option value="#006100"></option><option value="#0047b2"></option><option value="#6b24b2"></option><option value="#444444"></option><option value="#5c0000"></option><option value="#663d00"></option><option value="#666600"></option><option value="#003700"></option><option value="#002966"></option><option value="#3d1466"></option></select>
+                  <select class="ql-background"><option value="#000000"></option><option value="#e60000"></option><option value="#ff9900"></option><option value="#ffff00"></option><option value="#008a00"></option><option value="#0066cc"></option><option value="#9933ff"></option><option selected="selected"></option><option value="#facccc"></option><option value="#ffebcc"></option><option value="#ffffcc"></option><option value="#cce8cc"></option><option value="#cce0f5"></option><option value="#ebd6ff"></option><option value="#bbbbbb"></option><option value="#f06666"></option><option value="#ffc266"></option><option value="#ffff66"></option><option value="#66b966"></option><option value="#66a3e0"></option><option value="#c285ff"></option><option value="#888888"></option><option value="#a10000"></option><option value="#b26b00"></option><option value="#b2b200"></option><option value="#006100"></option><option value="#0047b2"></option><option value="#6b24b2"></option><option value="#444444"></option><option value="#5c0000"></option><option value="#663d00"></option><option value="#666600"></option><option value="#003700"></option><option value="#002966"></option><option value="#3d1466"></option></select>
+                  <select class="ql-size" style="width:50px;">
+                      <option value="false" selected>字号</option>
+                      <option value="small">小号</option>
+                      <option value="large">大号</option>
+                  </select>
+                  <select class="ql-font" style="width:50px;"><option selected="selected">字体</option><option value="serif"></option><option value="monospace"></option></select>
+                  <select class="ql-header" style="width:70px;">
+                      <option value="false" selected>标题</option>
+                      <option value="1">标题1</option>
+                      <option value="2">标题2</option>
+                      <option value="3">标题3</option>
+                  </select>
+                  <button class="ql-list ql-active" value="ordered">有序</button>
+                  <button class="ql-list" value="bullet">无序</button>
+                  <button class="ql-indent" value="+1">左缩进</button>
+                  <button class="ql-indent" value="-1">右缩进</button>
+                  <select class="ql-align">
+                      <option selected></option>
+                      <option value="center"></option>
+                      <option value="right"></option>
+                      <option value="justify"></option>
+                    </select>                  
+                    <button class="ql-image"></button>
+                </span>
+              </div>
         </quill-editor>
       </ion-col>
     </ion-row>

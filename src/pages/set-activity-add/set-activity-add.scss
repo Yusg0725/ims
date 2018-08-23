@@ -11,14 +11,18 @@ page-set-activity-add {
         padding-left:10px;
     }
     .ys-value{
-        height:45px;
+        height:100%;
         padding-left:10px;
         background-color:rgb(255, 255, 255);
     }
-    .ys-value input{
+    .ys-value input,.ys-value ion-datetime,.ys-value ion-range{
         width:100%;
         height:35px;
+        line-height: 30px;
         border-radius:5px;
         border: 1px dotted #EEE;
+    }
+    .ql-container.ql-snow{
+        height:200px;
     }
 }

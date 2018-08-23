@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
   <meta charset="UTF-8">
   <title>内部管理系统</title>
@@ -30,10 +31,59 @@
         .catch(err => console.error('Error', err));
     }
   </script>-->
+  <script type="text/javascript" src="./assets/scripts/jquery-1.10.2.min.js"></script>
+  <script type="text/javascript" src="./assets/scripts/jquery.signalR-2.2.0.min.js"></script>
+
 
   <link href="build/main.css" rel="stylesheet">
+  <script type="text/javascript">
+    var signalrurl = "http://192.168.0.99:9595/signalr";
+    var proxy = $.hubConnection(signalrurl);
+    var hubpro = proxy.createHubProxy("MsgHub");
+    var userid = JSON.parse(localStorage.getItem("_userobj"))[0].UserId;
+    $(function () {
+      try {
+        proxy.start({ xdomain: true }).done(function (data) {
+        }).fail(function () {
+          console.log('消息服务器已断开，查看消息服务器状态！');
+        });
+        hubpro.connection.stateChanged(function (change) {
+          let clinetstatus = change.newState;
+          //彻底断开4  开始连接0 连接成功1  重新连接2
+          var statusclient = "";
+          switch (change.newState) {
+            case 0:
+              statusclient = "连接中..."
+              break;
+            case 1:
+              statusclient = "连接成功";
+              hubpro.invoke("Init", userid, "Android");
+              break;
+            case 2:
+              statusclient = "重新连接...";
+              break;
+            case 4:
+              statusclient = "断开";
+              break;
+          }
+        });
 
+        hubpro.on("RefreshData", function (data) {
+          if (data == "1") {
+            window.platformInstance_TabsPage.InitNoticeBadge();
+            window.platformInstance_TabsPage.NoticeaddPage();
+            //tabsPage.InitNoticeBadge();
+            //InitNoticeBadge();
+          }
+        });
+      } catch (w) { alert(w); }
+    })
+    function PushData(){
+      hubpro.invoke("RefreshData");
+    }
+  </script>
 </head>
+
 <body>
   <!-- Ionic's root component and where the app will load -->
   <ion-app></ion-app>
@@ -48,5 +98,7 @@
   <!-- The main bundle js is generated during the build process -->
   <script src="build/main.js"></script>
 
+  <input type="hidden" id="op" onclick="PushData()" />
 </body>
+
 </html>

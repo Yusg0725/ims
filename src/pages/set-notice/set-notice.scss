@@ -1,51 +1,49 @@
 page-set-notice {
-
     .toolbar-title-md {
         text-align: center;
     }
     .down-select span {
         margin-left: 5px;
     }
-    .num{
+    .num {
         color: #fff;
         background-color: #387ef5;
         border-radius: 3px;
         padding: 0px 2px;
     }
-    .op-del{
+    .op-del {
         background-color: #EF473A;
         color: #fff;
         display: block;
         height: 40px;
         width: 40px;
-        font-size:25px;
-        padding:7px;
+        font-size: 25px;
+        padding: 7px;
         border-radius: 50px;
     }
-    .ys-content{
-        background-color:#F9F9F9;
+    .ys-content {
+        background-color: #F9F9F9;
     }
-    .ys-list{
-        margin:7px 10px 0px 10px;
-        width:95%;
-        padding:0px;
-    }
-    .ys-list-title{
-        border-top:0.1px solid #ccc;
-        border-right:0.1px solid #ccc;
-        border-bottom:0.1px solid #ccc;
-        border-left:0.1px solid #ccc;
-        min-height:70px;
-        font-size:14px;
-        padding:0px;
-    }
-    .list-md[no-lines] .item-block, .list-md[no-lines] .item .item-inner{
-        border-width:0.5px 0.5px 0.5px 0.5px;
-        border-top-right-radius: 5px;
-        border-bottom-right-radius: 5px;
+    .ys-list {
+        margin: 7px 10px 0px 10px;
+        width: 95%;
+        border-left: 1px solid #ccc;
         border-top-left-radius: 5px;
         border-bottom-left-radius: 5px;
+        padding: 0px;
     }
-
+    .ys-list-title {
+        border-top: 0.1px solid #ccc;
+        border-right: 0.1px solid #ccc;
+        border-bottom: 0.1px solid #ccc;
+        min-height: 70px;
+        font-size: 14px;
+        padding: 0px;
+    }
+    .list-md[no-lines] .item-block,
+    .list-md[no-lines] .item .item-inner {
+        border-width: 0.5px 0.5px 0.5px 0.5px;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
 }
-

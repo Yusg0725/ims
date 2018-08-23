@@ -39,7 +39,7 @@ export class NoticecontentPage {
     const url = AppGlobal.API["deleteNotice"];
     this.appService.httpPost(url,{NewsId:this.newsId},"删除公告成功","删除公告失败",(data)=>{
       console.log(data);
-      this.navCtrl.push('NoticePage');
+      this.navCtrl.push('SetNoticePage');
     },false);
   }
 

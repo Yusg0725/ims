@@ -48,12 +48,14 @@ export class MyApp {
         console.log("resume"); //进入，前台展示
 
       }, false);
+
       //运行环境从前台切换到后台事件
       document.addEventListener("pause", () => {
 
         console.log("pause"); //退出，后台运行
 
       }, false);
+      
     });
   }
 }

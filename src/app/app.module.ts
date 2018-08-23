@@ -1,27 +1,26 @@
 import { NgModule, ErrorHandler } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-import { ComponentsModule } from '../components/components.module';
-import { MyApp } from './app.component';
-import { Geolocation } from '@ionic-native/geolocation';
-
-import { HttpModule,JsonpModule} from '@angular/http';
-import { HttpClientModule} from '@angular/common/http';
-import { QuillModule } from 'ngx-quill';
 import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule,JsonpModule} from '@angular/http';
 
+
+import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { QuillModule } from 'ngx-quill';
+import { ComponentsModule } from '../components/components.module';
+import { PipesModule } from '../pipes/pipes.module';
+import { MyApp } from './app.component';
+
+import { LocalNotifications } from '@ionic-native/local-notifications';
+import { Geolocation } from '@ionic-native/geolocation';
 import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { CallNumber } from '@ionic-native/call-number';
+import { SMS } from '@ionic-native/sms';
 import { Contacts } from '@ionic-native/contacts';
 import { Base64 } from '@ionic-native/base64';
-
-
 import {SQLite} from "@ionic-native/sqlite";
-import { PipesModule } from '../pipes/pipes.module';
 import { QRScanner } from '@ionic-native/qr-scanner';
-
 
 import { MyPage } from '../pages/my/my';
 import { SettingPage } from '../pages/setting/setting';
@@ -29,9 +28,7 @@ import { HomePage } from '../pages/home/home';
 import { NoticePage } from '../pages/notice/notice';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage} from '../pages/login/login';
-
 import { NoticeaddPage } from '../pages/set-noticeadd/noticeadd';
-
 import { NewsaddPage} from '../pages/newsadd/newsadd';
 import { SetActivityAddPage } from '../pages/set-activity-add/set-activity-add';
 
@@ -58,16 +55,13 @@ import { SqliteProvider } from '../providers/sqlite/sqlite';
     NewsaddPage
   ],
   imports: [
+    FormsModule,
     BrowserModule,
-    ComponentsModule,
     HttpModule,
     JsonpModule,
     QuillModule,
-    FormsModule,
-    HttpClientModule,
-
-    QuillModule,
     PipesModule,
+    ComponentsModule,
     IonicModule.forRoot(MyApp,{
       backButtonText:'',
       backButtonIcon:'ios-arrow-back',
@@ -105,11 +99,13 @@ import { SqliteProvider } from '../providers/sqlite/sqlite';
     SQLite,
     SqliteProvider,
     CallNumber,
+    SMS,
     Contacts,
     FileTransfer,
     Base64,
     QRScanner,
-    Vibration
+    Vibration,
+    LocalNotifications
   ]
 
 })

@@ -1,6 +1,10 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, Content, NavController, NavParams } from 'ionic-angular';
-import { Contacts, ContactFieldType, ContactFindOptions } from '@ionic-native/contacts';
+import { IonicPage, Content, NavController, NavParams, ModalController } from 'ionic-angular';
+import { Contacts } from '@ionic-native/contacts';
+import { AppGlobal, AppserviceProvider } from '../../providers/appservice/appservice';
+import { CallNumber } from '@ionic-native/call-number';
+import { SMS } from '@ionic-native/sms';
+
 // import VConsole from 'vconsole';
 // var vConsole = new VConsole();
 // Contact, ContactField, ContactName, 
@@ -25,7 +29,7 @@ export class MyContactUserPage {
   callback: any;
   toast: any;
   remitBanks: any;
-  constructor(public contacts: Contacts, public elementRef: ElementRef, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private sms: SMS, public modalCtrl: ModalController, private callNumber: CallNumber, public appService: AppserviceProvider, public contacts: Contacts, public elementRef: ElementRef, public navCtrl: NavController, public navParams: NavParams) {
 
     //汉字转拼音
     var pinyin = (function () {
@@ -154,17 +158,17 @@ export class MyContactUserPage {
 
       return new Pinyin(arguments);
     })();
-    
+
     this.fetch((data) => {
       this.remitBanks = data;
       this.aLetters.forEach((res, index) => {
-            if(this.remitBanks[res] && this.remitBanks[res].lenght != 0) {
-              this.formatContacts.push(this.remitBanks[res]);
-              this.letters.push(res);
-            }
+        if (this.remitBanks[res] && this.remitBanks[res].lenght != 0) {
+          this.formatContacts.push(this.remitBanks[res]);
+          this.letters.push(res);
+        }
       });
     });
-    
+
     // let fields: ContactFieldType[] = ['displayName', 'phoneNumbers'];
     // let options = new ContactFindOptions();
     // options.filter = "";
@@ -249,9 +253,18 @@ export class MyContactUserPage {
   }
 
   goBack(data) {
-    console.log(data);
-    this.callback(data).then(() => {
-      this.navCtrl.pop();
+    this.appService.actionsheet("操作", [{ id: 1, text: '电话', role: 'destructive', icon: null }, { id: 2, text: '短信', role: null, icon: null }, { id: 3, text: '取消', role: 'cancel', icon: null }], (id) => {
+      if (id == 1) {
+        this.callNumber.callNumber(data.phoneNumber, true)
+          .then(res => console.log('启动拨号', res))
+          .catch(err => console.log('启动拨号失败', err));
+      } else if (id == 2) {
+        this.appService.prompt([{ name: 'msgInfo', placeholder: '请输入短信内容' }], "发送短信", (msg) => {
+          if (msg != 0) {
+            this.sms.send(data.phoneNumber, msg.msgInfo);
+          }
+        })
+      }
     });
   }
 

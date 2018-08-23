@@ -9,12 +9,16 @@ page-set-activity-detail {
         line-height:40px;
         height:35px;
         padding-left:10px;
+        text-align: center;
+        font-size:18px;
     }
     .ys-value{
         height:45px;
         line-height:40px;
-        padding-left:20px;
-        background-color:rgb(255, 255, 255);
+        //background-color:rgb(255, 255, 255);
         border-bottom:1px dotted #eee;
+        span{
+            font-weight: bold;
+        }
     }
 }
